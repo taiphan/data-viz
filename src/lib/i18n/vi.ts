@@ -15,8 +15,8 @@ export const vi: Translations = {
 
   // Data import - landing
   'import.readyToVisualize': 'Sẵn sàng trực quan hóa',
-  'import.heroTitle': 'Data Viz',
-  'import.heroDescription': 'Nền tảng phân tích tự phục vụ. Tải dữ liệu lên, xây dựng biểu đồ tương tác, tạo bảng điều khiển ấn tượng.',
+  'import.heroTitle': 'FE CREDIT Analytics',
+  'import.heroDescription': 'Nền tảng phân tích tự phục vụ cho FE CREDIT. Tải dữ liệu lên, xây dựng biểu đồ tương tác, tạo bảng điều khiển ấn tượng.',
   'import.dropTitle': 'Thả tệp dữ liệu vào đây',
   'import.dropBrowse': 'duyệt',
   'import.dropHint': 'Hỗ trợ CSV, JSON, Excel, PDF, Parquet, TSV và các định dạng thống kê',

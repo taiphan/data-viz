@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *, .high-contrast *, .ocean *, .midnight *));
+@custom-variant dark (&:is(.dark *, .high-contrast *, .ocean *, .midnight *, .fecredit *));
 
 @theme inline {
   --color-background: var(--background);
@@ -325,6 +325,41 @@
   --sidebar-accent-foreground: oklch(0.93 0.02 270);
   --sidebar-border: oklch(0.93 0.03 270 / 10%);
   --sidebar-ring: oklch(0.72 0.15 280);
+}
+
+/* FE CREDIT — corporate red brand theme */
+.fecredit {
+  --background: oklch(0.14 0.02 15);
+  --foreground: oklch(0.95 0.01 15);
+  --card: oklch(0.18 0.025 15);
+  --card-foreground: oklch(0.95 0.01 15);
+  --popover: oklch(0.18 0.025 15);
+  --popover-foreground: oklch(0.95 0.01 15);
+  --primary: oklch(0.55 0.22 25);
+  --primary-foreground: oklch(0.98 0.01 15);
+  --secondary: oklch(0.23 0.03 15);
+  --secondary-foreground: oklch(0.9 0.01 15);
+  --muted: oklch(0.23 0.02 15);
+  --muted-foreground: oklch(0.65 0.03 15);
+  --accent: oklch(0.26 0.04 15);
+  --accent-foreground: oklch(0.95 0.01 15);
+  --destructive: oklch(0.65 0.2 25);
+  --border: oklch(0.95 0.02 15 / 12%);
+  --input: oklch(0.95 0.02 15 / 15%);
+  --ring: oklch(0.55 0.22 25);
+  --chart-1: oklch(0.55 0.22 25);
+  --chart-2: oklch(0.7 0.15 50);
+  --chart-3: oklch(0.6 0.18 0);
+  --chart-4: oklch(0.75 0.1 80);
+  --chart-5: oklch(0.5 0.15 350);
+  --sidebar: oklch(0.12 0.02 15);
+  --sidebar-foreground: oklch(0.95 0.01 15);
+  --sidebar-primary: oklch(0.55 0.22 25);
+  --sidebar-primary-foreground: oklch(0.98 0.01 15);
+  --sidebar-accent: oklch(0.23 0.03 15);
+  --sidebar-accent-foreground: oklch(0.95 0.01 15);
+  --sidebar-border: oklch(0.95 0.02 15 / 10%);
+  --sidebar-ring: oklch(0.55 0.22 25);
 }
 
 @layer base {

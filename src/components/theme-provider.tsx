@@ -16,6 +16,7 @@ export const AVAILABLE_THEMES = [
   'forest',
   'sunset',
   'midnight',
+  'fecredit',
 ] as const;
 
 export type ThemeId = (typeof AVAILABLE_THEMES)[number] | 'system';

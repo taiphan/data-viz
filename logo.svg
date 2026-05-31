@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none">
-  <rect width="200" height="200" rx="40" fill="#0f172a"/>
-  <rect x="40" y="105" width="30" height="50" rx="8" fill="#3b82f6"/>
-  <rect x="85" y="70" width="30" height="85" rx="8" fill="#60a5fa"/>
-  <rect x="130" y="35" width="30" height="120" rx="8" fill="#93c5fd"/>
-  <text x="100" y="185" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#94a3b8">DataViz</text>
+  <rect width="200" height="200" rx="40" fill="#e31837"/>
+  <text x="100" y="105" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="800" fill="white" letter-spacing="-2">FE</text>
+  <text x="100" y="140" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="white" opacity="0.9">CREDIT</text>
+  <text x="100" y="175" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="white" opacity="0.7">Analytics</text>
 </svg>

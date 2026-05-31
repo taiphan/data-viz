@@ -15,8 +15,8 @@ export const en: Translations = {
 
   // Data import - landing
   'import.readyToVisualize': 'Ready to visualize',
-  'import.heroTitle': 'Data Viz',
-  'import.heroDescription': 'Self-service analytics platform. Upload data, build interactive charts, create stunning dashboards.',
+  'import.heroTitle': 'FE CREDIT Analytics',
+  'import.heroDescription': 'Self-service analytics platform for FE CREDIT. Upload data, build interactive charts, create stunning dashboards.',
   'import.dropTitle': 'Drop your data file here',
   'import.dropBrowse': 'browse',
   'import.dropHint': 'Supports CSV, JSON, Excel, PDF, Parquet, TSV, and statistical formats',

@@ -15,8 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Data Viz — Self-Service Analytics',
-  description: 'Upload data, build charts, create interactive dashboards. Open-source Tableau alternative.',
+  title: 'FE CREDIT Analytics — Nền tảng phân tích dữ liệu',
+  description: 'Nền tảng phân tích tự phục vụ cho FE CREDIT. Tải dữ liệu, xây dựng biểu đồ, tạo bảng điều khiển tương tác.',
+  keywords: ['FE CREDIT', 'analytics', 'data visualization', 'consumer finance', 'VPBank'],
+  authors: [{ name: 'FE CREDIT Technology' }],
 };
 
 export default function RootLayout({

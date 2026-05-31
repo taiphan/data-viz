@@ -13,12 +13,14 @@ import {
   Sunset,
   Stars,
   Palette,
+  CreditCard,
 } from 'lucide-react';
 
 const themes = [
   { id: 'system', label: 'System', icon: Monitor, group: 'default' },
   { id: 'light', label: 'Light', icon: Sun, group: 'default' },
   { id: 'dark', label: 'Dark', icon: Moon, group: 'default' },
+  { id: 'fecredit', label: 'FE CREDIT', icon: CreditCard, group: 'color' },
   { id: 'ocean', label: 'Ocean', icon: Waves, group: 'color' },
   { id: 'forest', label: 'Forest', icon: TreePine, group: 'color' },
   { id: 'sunset', label: 'Sunset', icon: Sunset, group: 'color' },

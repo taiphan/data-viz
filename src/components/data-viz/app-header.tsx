@@ -42,15 +42,15 @@ export function AppHeader() {
       {/* Left: Logo + Workbook name */}
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center h-7 w-7 rounded-md bg-primary/10">
-            <BarChart3 className="h-4 w-4 text-primary" />
+          <div className="flex items-center justify-center h-7 w-7 rounded-md bg-[#e31837]">
+            <span className="text-[10px] font-extrabold text-white leading-none">FE</span>
           </div>
-          <span className="text-sm font-semibold tracking-tight hidden md:inline">
-            DataViz
-          </span>
-          <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 hidden md:inline-flex">
-            v{APP_VERSION}
-          </Badge>
+          <div className="hidden md:flex flex-col leading-none">
+            <span className="text-sm font-bold tracking-tight">
+              FE CREDIT
+            </span>
+            <span className="text-[9px] text-muted-foreground">Analytics Platform</span>
+          </div>
         </div>
 
         <div className="h-4 w-px bg-border hidden md:block" />
