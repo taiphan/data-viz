@@ -1,5 +1,24 @@
 # Changelog — Data Viz
 
+## v1.1.0 (2026-05-31)
+
+### Features
+- **i18n Support** — English and Vietnamese translations with language switcher
+- **Auth Page** — Demo account picker with manual login option
+- **Vercel Deployment** — Optimized build configuration for production
+
+### UI/UX
+- Language switcher (🇺🇸/🇻🇳) in app header
+- 100+ translated UI strings across all components
+- Locale persisted to localStorage
+
+### Infrastructure
+- Lightweight Zustand-based i18n store (no external library)
+- TypeScript-strict translation keys interface
+- Version bumped to 1.1.0
+
+---
+
 ## v1.0.0 (2026-05-31)
 
 ### Features
