@@ -2,17 +2,20 @@
 
 import { useWorkbookStore } from '@/lib/store';
 import { useAuthStore } from '@/lib/auth-store';
+import { useT } from '@/lib/i18n';
 import { ThemeSwitcher } from '@/components/theme-switcher';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { VersionHistoryPanel } from '@/components/data-viz/version-history-panel';
 import { Badge } from '@/components/ui/badge';
-import { BarChart3, Pencil, Check, LogOut, User } from 'lucide-react';
+import { BarChart3, Pencil, Check, LogOut } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
-const APP_VERSION = '1.0.0';
+const APP_VERSION = '1.1.0';
 
 export function AppHeader() {
   const { workbook, renameWorkbook } = useWorkbookStore();
   const { user, logout } = useAuthStore();
+  const t = useT();
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(workbook.name);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -73,7 +76,7 @@ export function AppHeader() {
               <button
                 onClick={handleSave}
                 className="rounded p-0.5 hover:bg-accent transition-colors"
-                aria-label="Save name"
+                aria-label={t('app.saveName')}
               >
                 <Check className="h-3.5 w-3.5 text-primary" />
               </button>
@@ -85,7 +88,7 @@ export function AppHeader() {
                 setIsEditing(true);
               }}
               className="group flex items-center gap-1.5 rounded px-1.5 py-0.5 hover:bg-accent transition-colors"
-              aria-label="Rename workbook"
+              aria-label={t('app.renameWorkbook')}
             >
               <span className="text-xs font-medium truncate max-w-[200px]">
                 {workbook.name}
@@ -100,13 +103,14 @@ export function AppHeader() {
       <div className="flex items-center gap-1">
         <VersionHistoryPanel />
         <div className="h-4 w-px bg-border mx-1" />
+        <LanguageSwitcher />
         <ThemeSwitcher />
         <div className="h-4 w-px bg-border mx-1" />
         {/* User menu */}
         {user && (
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-muted/50">
-              <User className="h-3.5 w-3.5 text-muted-foreground" />
+              <span className="text-sm">{user.avatar}</span>
               <span className="text-xs font-medium hidden sm:inline">
                 {user.displayName}
               </span>
@@ -114,10 +118,10 @@ export function AppHeader() {
             <button
               onClick={logout}
               className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
-              title="Sign out"
+              title={t('app.signOut')}
             >
               <LogOut className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">Sign out</span>
+              <span className="hidden sm:inline">{t('app.signOut')}</span>
             </button>
           </div>
         )}

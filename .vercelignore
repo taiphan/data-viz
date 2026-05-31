@@ -1,0 +1,7 @@
+proxy/
+.claude/
+.cursor/
+.kiro/specs/
+*.test.ts
+*.test.tsx
+coverage/

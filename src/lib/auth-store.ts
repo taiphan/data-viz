@@ -1,136 +1,146 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+// ============================================================
+// DEMO USERS — Client-side auth (no backend required)
+// ============================================================
+
+export interface DemoUser {
+  id: string;
+  username: string;
+  password: string;
+  displayName: string;
+  role: 'admin' | 'analyst' | 'viewer';
+  avatar: string;
+  description: string;
+}
+
+export const DEMO_USERS: DemoUser[] = [
+  {
+    id: 'usr_admin_001',
+    username: 'admin',
+    password: 'admin123',
+    displayName: 'Alex Admin',
+    role: 'admin',
+    avatar: '👑',
+    description: 'Full access — manage users, connectors, and system settings',
+  },
+  {
+    id: 'usr_analyst_001',
+    username: 'analyst',
+    password: 'analyst123',
+    displayName: 'Sarah Analyst',
+    role: 'analyst',
+    avatar: '📊',
+    description: 'Create dashboards, connect data sources, build charts',
+  },
+  {
+    id: 'usr_analyst_002',
+    username: 'david',
+    password: 'david123',
+    displayName: 'David Chen',
+    role: 'analyst',
+    avatar: '🔬',
+    description: 'Data exploration, ETL flows, and advanced analytics',
+  },
+  {
+    id: 'usr_viewer_001',
+    username: 'viewer',
+    password: 'viewer123',
+    displayName: 'Maya Viewer',
+    role: 'viewer',
+    avatar: '👁️',
+    description: 'View dashboards and exported reports (read-only)',
+  },
+  {
+    id: 'usr_demo_001',
+    username: 'demo',
+    password: 'demo1234',
+    displayName: 'Demo User',
+    role: 'analyst',
+    avatar: '🚀',
+    description: 'Try all features — charts, filters, AI insights, and more',
+  },
+];
+
+// ============================================================
+// AUTH STORE
+// ============================================================
 
 export interface AuthUser {
   id: string;
   username: string;
   displayName: string;
+  role: string;
+  avatar: string;
 }
 
 interface AuthState {
   user: AuthUser | null;
-  accessToken: string | null;
-  refreshToken: string | null;
   isLoading: boolean;
   error: string | null;
 
   login: (username: string, password: string) => Promise<void>;
-  register: (username: string, password: string, displayName?: string) => Promise<void>;
+  loginAsDemo: (demoUser: DemoUser) => void;
   logout: () => void;
-  refreshSession: () => Promise<boolean>;
   clearError: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       user: null,
-      accessToken: null,
-      refreshToken: null,
       isLoading: false,
       error: null,
 
       login: async (username, password) => {
         set({ isLoading: true, error: null });
 
-        try {
-          const res = await fetch(`${API_BASE}/api/auth/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }),
-          });
+        // Simulate network delay for realistic UX
+        await new Promise((resolve) => setTimeout(resolve, 400));
 
-          const data = await res.json();
+        const normalized = username.toLowerCase().trim();
+        const found = DEMO_USERS.find(
+          (u) => u.username === normalized && u.password === password,
+        );
 
-          if (!res.ok) {
-            set({
-              isLoading: false,
-              error: data.error?.message || 'Login failed',
-            });
-            return;
-          }
-
+        if (!found) {
           set({
-            user: data.user,
-            accessToken: data.accessToken,
-            refreshToken: data.refreshToken,
             isLoading: false,
-            error: null,
+            error: 'Invalid username or password.',
           });
-        } catch {
-          set({ isLoading: false, error: 'Network error. Is the server running?' });
+          return;
         }
-      },
 
-      register: async (username, password, displayName) => {
-        set({ isLoading: true, error: null });
-
-        try {
-          const res = await fetch(`${API_BASE}/api/auth/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password, displayName }),
-          });
-
-          const data = await res.json();
-
-          if (!res.ok) {
-            const message = data.error?.details
-              ? Object.values(data.error.details).flat().join('. ')
-              : data.error?.message || 'Registration failed';
-            set({ isLoading: false, error: message });
-            return;
-          }
-
-          set({
-            user: data.user,
-            accessToken: data.accessToken,
-            refreshToken: data.refreshToken,
-            isLoading: false,
-            error: null,
-          });
-        } catch {
-          set({ isLoading: false, error: 'Network error. Is the server running?' });
-        }
-      },
-
-      logout: () => {
         set({
-          user: null,
-          accessToken: null,
-          refreshToken: null,
+          user: {
+            id: found.id,
+            username: found.username,
+            displayName: found.displayName,
+            role: found.role,
+            avatar: found.avatar,
+          },
+          isLoading: false,
           error: null,
         });
       },
 
-      refreshSession: async () => {
-        const { refreshToken } = get();
-        if (!refreshToken) return false;
+      loginAsDemo: (demoUser) => {
+        set({
+          user: {
+            id: demoUser.id,
+            username: demoUser.username,
+            displayName: demoUser.displayName,
+            role: demoUser.role,
+            avatar: demoUser.avatar,
+          },
+          isLoading: false,
+          error: null,
+        });
+      },
 
-        try {
-          const res = await fetch(`${API_BASE}/api/auth/refresh`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ refreshToken }),
-          });
-
-          if (!res.ok) {
-            set({ user: null, accessToken: null, refreshToken: null });
-            return false;
-          }
-
-          const data = await res.json();
-          set({
-            user: data.user,
-            accessToken: data.accessToken,
-            refreshToken: data.refreshToken,
-          });
-          return true;
-        } catch {
-          return false;
-        }
+      logout: () => {
+        set({ user: null, error: null });
       },
 
       clearError: () => set({ error: null }),
@@ -139,8 +149,6 @@ export const useAuthStore = create<AuthState>()(
       name: 'data-viz-auth',
       partialize: (state) => ({
         user: state.user,
-        accessToken: state.accessToken,
-        refreshToken: state.refreshToken,
       }),
     },
   ),

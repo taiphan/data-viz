@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react';
 import { DataField } from '@/lib/types';
 import { useWorkbookStore } from '@/lib/store';
+import { useT } from '@/lib/i18n';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   DropdownMenu,
@@ -24,6 +25,7 @@ const FIELD_TYPE_ICONS: Record<string, React.ElementType> = {
 
 export function FieldPanel() {
   const { workbook, setEncoding, getActiveChart, removeGroup, removeBin } = useWorkbookStore();
+  const t = useT();
   const activeDs = workbook.dataSources.find((d) => d.id === workbook.activeDataSourceId);
   const activeChart = getActiveChart();
 
@@ -76,14 +78,14 @@ export function FieldPanel() {
       <div className="border-b px-3 py-2.5">
         <div className="flex items-center justify-between mb-1.5">
           <h2 className="text-xs font-semibold text-foreground">
-            Fields
+            {t('fields.title')}
           </h2>
           <span className="text-[10px] text-muted-foreground bg-muted rounded-full px-2 py-0.5">
             {activeDs.fields.length}
           </span>
         </div>
         <p className="text-[10px] text-muted-foreground">
-          {activeDs.rowCount.toLocaleString()} rows
+          {activeDs.rowCount.toLocaleString()} {t('fields.rows')}
         </p>
       </div>
 
@@ -93,7 +95,7 @@ export function FieldPanel() {
           <div>
             <h3 className="mb-1.5 px-2 text-[11px] font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-              Dimensions
+              {t('fields.dimensions')}
               <span className="ml-auto text-[10px] font-normal text-muted-foreground">{dimensions.length}</span>
             </h3>
             <div className="space-y-0.5">
@@ -113,7 +115,7 @@ export function FieldPanel() {
           <div>
             <h3 className="mb-1.5 px-2 text-[11px] font-semibold text-green-600 dark:text-green-400 flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-              Measures
+              {t('fields.measures')}
               <span className="ml-auto text-[10px] font-normal text-muted-foreground">{measures.length}</span>
             </h3>
             <div className="space-y-0.5">
@@ -133,7 +135,7 @@ export function FieldPanel() {
           {(activeGroups.length > 0 || activeBins.length > 0) && (
             <div>
               <h3 className="mb-1 px-1.5 text-[10px] font-semibold uppercase tracking-wider text-purple-600 dark:text-purple-400">
-                Virtual Fields ({activeGroups.length + activeBins.length})
+                {t('fields.virtualFields')} ({activeGroups.length + activeBins.length})
               </h3>
               <div className="space-y-px">
                 {activeGroups.map((group) => (
@@ -190,6 +192,7 @@ function FieldItem({
   onCreateBin: (field: DataField) => void;
 }) {
   const [contextOpen, setContextOpen] = useState(false);
+  const t = useT();
   const Icon = FIELD_TYPE_ICONS[field.type] || Type;
   const isDimension = field.role === 'dimension';
 
@@ -264,7 +267,7 @@ function FieldItem({
             onClick={() => onCreateGroup(field)}
           >
             <Layers className="h-3.5 w-3.5 mr-1.5" />
-            Create Group...
+            {t('fields.createGroup')}
           </DropdownMenuItem>
         )}
         {!isDimension && (
@@ -272,18 +275,18 @@ function FieldItem({
             onClick={() => onCreateBin(field)}
           >
             <BarChart3 className="h-3.5 w-3.5 mr-1.5" />
-            Create Bin...
+            {t('fields.createBin')}
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => onAssign(field.name, 'xAxis')}>
-          Add to X Axis
+          {t('fields.addToXAxis')}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => onAssign(field.name, 'yAxis')}>
-          Add to Y Axis
+          {t('fields.addToYAxis')}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => onAssign(field.name, 'color')}>
-          Add to Color
+          {t('fields.addToColor')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -304,6 +307,7 @@ function VirtualFieldItem({
   onRemove: () => void;
 }) {
   const Icon = type === 'group' ? Layers : BarChart3;
+  const t = useT();
 
   return (
     <div
@@ -326,7 +330,7 @@ function VirtualFieldItem({
       <div className="flex flex-col min-w-0 flex-1">
         <span className="truncate font-medium">{name}</span>
         <span className="truncate text-[9px] text-muted-foreground">
-          {type === 'group' ? 'Group' : 'Bin'} • {sourceField}
+          {type === 'group' ? t('fields.group') : t('fields.bin')} • {sourceField}
         </span>
       </div>
       <div className="ml-auto hidden gap-px group-hover:flex shrink-0">

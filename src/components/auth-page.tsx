@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { useAuthStore } from '@/lib/auth-store';
+import { useAuthStore, DEMO_USERS, DemoUser } from '@/lib/auth-store';
+import { useT } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ThemeSwitcher } from '@/components/theme-switcher';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import {
   BarChart3,
   Eye,
@@ -13,56 +15,58 @@ import {
   Loader2,
   AlertCircle,
   ArrowRight,
-  Sparkles,
+  Users,
+  Shield,
+  LineChart,
+  BookOpen,
 } from 'lucide-react';
 
-type AuthMode = 'login' | 'register';
+const ROLE_ICONS: Record<string, React.ElementType> = {
+  admin: Shield,
+  analyst: LineChart,
+  viewer: BookOpen,
+};
+
+const ROLE_COLORS: Record<string, string> = {
+  admin: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20',
+  analyst: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20',
+  viewer: 'bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20',
+};
 
 export function AuthPage() {
-  const { login, register, isLoading, error, clearError } = useAuthStore();
-  const [mode, setMode] = useState<AuthMode>('login');
+  const { login, loginAsDemo, isLoading, error, clearError } = useAuthStore();
+  const t = useT();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showManualLogin, setShowManualLogin] = useState(false);
 
-  // Clear error when switching modes
   useEffect(() => {
     clearError();
-  }, [mode, clearError]);
+  }, [showManualLogin, clearError]);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      if (mode === 'login') {
-        await login(username, password);
-      } else {
-        await register(username, password, displayName || undefined);
-      }
+      await login(username, password);
     },
-    [mode, username, password, displayName, login, register],
+    [username, password, login],
   );
 
-  const switchMode = () => {
-    setMode(mode === 'login' ? 'register' : 'login');
-    setUsername('');
-    setPassword('');
-    setDisplayName('');
+  const handleDemoLogin = (user: DemoUser) => {
+    loginAsDemo(user);
   };
-
-  const isFormValid =
-    username.trim().length >= 3 &&
-    password.length >= (mode === 'register' ? 8 : 1);
 
   return (
     <div className="relative flex min-h-screen">
-      {/* Theme switcher */}
-      <div className="absolute top-4 right-4 z-10">
+      {/* Theme & Language switcher */}
+      <div className="absolute top-4 right-4 z-10 flex items-center gap-1">
+        <LanguageSwitcher />
         <ThemeSwitcher />
       </div>
 
       {/* Left panel — branding */}
-      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between bg-primary p-12 text-primary-foreground">
+      <div className="hidden lg:flex lg:w-[45%] flex-col justify-between bg-primary p-12 text-primary-foreground">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-foreground/10">
             <BarChart3 className="h-6 w-6" />
@@ -71,22 +75,19 @@ export function AuthPage() {
         </div>
 
         <div className="space-y-6">
-          <h1 className="text-4xl font-bold leading-tight">
-            Self-service analytics
-            <br />
-            for your team.
+          <h1 className="text-4xl font-bold leading-tight whitespace-pre-line">
+            {t('auth.welcomeTitle')}
           </h1>
           <p className="text-lg text-primary-foreground/70 max-w-md">
-            Upload data, build charts, create interactive dashboards.
-            Connect to 60+ data sources with enterprise-grade security.
+            {t('auth.welcomeSubtitle')}
           </p>
 
           <div className="grid grid-cols-2 gap-4 pt-4">
             {[
-              { label: '14 Chart Types', desc: 'Bar, line, scatter, sankey...' },
-              { label: '60+ Connectors', desc: 'Databases, APIs, cloud storage' },
-              { label: 'Real-time Filters', desc: 'Interactive dashboards' },
-              { label: 'AI Insights', desc: 'Auto-detect patterns' },
+              { label: t('auth.chartTypes'), desc: t('auth.chartTypesDesc') },
+              { label: t('auth.connectors'), desc: t('auth.connectorsDesc') },
+              { label: t('auth.filters'), desc: t('auth.filtersDesc') },
+              { label: t('auth.aiInsights'), desc: t('auth.aiInsightsDesc') },
             ].map((feature) => (
               <div
                 key={feature.label}
@@ -104,9 +105,9 @@ export function AuthPage() {
         </p>
       </div>
 
-      {/* Right panel — auth form */}
-      <div className="flex w-full lg:w-1/2 flex-col items-center justify-center px-6 py-12">
-        <div className="w-full max-w-sm space-y-8">
+      {/* Right panel — auth */}
+      <div className="flex w-full lg:w-[55%] flex-col items-center justify-center px-6 py-12 overflow-y-auto">
+        <div className="w-full max-w-md space-y-8">
           {/* Mobile logo */}
           <div className="flex items-center gap-2 lg:hidden">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
@@ -118,135 +119,150 @@ export function AuthPage() {
           {/* Header */}
           <div className="space-y-2">
             <h2 className="text-2xl font-bold tracking-tight">
-              {mode === 'login' ? 'Welcome back' : 'Create your account'}
+              {t('auth.chooseAccount')}
             </h2>
             <p className="text-sm text-muted-foreground">
-              {mode === 'login'
-                ? 'Sign in to access your dashboards and data.'
-                : 'Get started with your analytics workspace.'}
+              {t('auth.pickUserDescription')}
             </p>
           </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Display Name (register only) */}
-            {mode === 'register' && (
+          {/* Demo user cards */}
+          <div className="space-y-2">
+            {DEMO_USERS.map((demoUser) => {
+              const RoleIcon = ROLE_ICONS[demoUser.role] || Users;
+              const roleColor = ROLE_COLORS[demoUser.role] || '';
+
+              return (
+                <button
+                  key={demoUser.id}
+                  onClick={() => handleDemoLogin(demoUser)}
+                  disabled={isLoading}
+                  className="w-full flex items-center gap-3 rounded-lg border p-3 text-left transition-all hover:bg-accent hover:border-primary/30 hover:shadow-sm active:scale-[0.99] cursor-pointer disabled:opacity-50"
+                >
+                  {/* Avatar */}
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-lg shrink-0">
+                    {demoUser.avatar}
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold truncate">
+                        {demoUser.displayName}
+                      </span>
+                      <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium ${roleColor}`}>
+                        <RoleIcon className="h-3 w-3" />
+                        {demoUser.role}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {demoUser.description}
+                    </p>
+                  </div>
+
+                  {/* Credentials hint */}
+                  <div className="text-right shrink-0 hidden sm:block">
+                    <p className="text-[10px] text-muted-foreground font-mono">
+                      {demoUser.username}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground font-mono">
+                      {demoUser.password}
+                    </p>
+                  </div>
+
+                  <ArrowRight className="h-4 w-4 text-muted-foreground shrink-0" />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Divider */}
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs">
+              <button
+                onClick={() => setShowManualLogin(!showManualLogin)}
+                className="bg-background px-3 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+              >
+                {showManualLogin ? t('auth.hideManualLogin') : t('auth.orSignInManually')}
+              </button>
+            </div>
+          </div>
+
+          {/* Manual login form (collapsed by default) */}
+          {showManualLogin && (
+            <form onSubmit={handleSubmit} className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
               <div className="space-y-2">
-                <Label htmlFor="displayName" className="text-sm font-medium">
-                  Display Name
+                <Label htmlFor="username" className="text-sm font-medium">
+                  {t('auth.username')}
                 </Label>
                 <Input
-                  id="displayName"
+                  id="username"
                   type="text"
-                  placeholder="How should we call you?"
-                  value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
-                  autoComplete="name"
+                  placeholder={t('auth.enterUsername')}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  autoComplete="username"
                   className="h-10"
                 />
               </div>
-            )}
 
-            {/* Username */}
-            <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-medium">
-                Username
-              </Label>
-              <Input
-                id="username"
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                autoComplete="username"
-                autoFocus
-                className="h-10"
-                minLength={3}
-                maxLength={32}
-              />
-              {mode === 'register' && username.length > 0 && username.length < 3 && (
-                <p className="text-xs text-muted-foreground">At least 3 characters</p>
-              )}
-            </div>
-
-            {/* Password */}
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium">
-                Password
-              </Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder={mode === 'register' ? 'Min. 8 characters' : 'Enter your password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                  className="h-10 pr-10"
-                  minLength={mode === 'register' ? 8 : 1}
-                  maxLength={128}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-                  tabIndex={-1}
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
-                </button>
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-sm font-medium">
+                  {t('auth.password')}
+                </Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder={t('auth.enterPassword')}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                    className="h-10 pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                    tabIndex={-1}
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
               </div>
-              {mode === 'register' && password.length > 0 && password.length < 8 && (
-                <p className="text-xs text-muted-foreground">At least 8 characters</p>
+
+              {error && (
+                <div className="flex items-start gap-2 rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
+                  <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
+                  <span>{error}</span>
+                </div>
               )}
-            </div>
 
-            {/* Error */}
-            {error && (
-              <div className="flex items-start gap-2 rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
-                <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
-                <span>{error}</span>
-              </div>
-            )}
+              <Button
+                type="submit"
+                className="w-full h-10 cursor-pointer gap-2"
+                disabled={isLoading || !username.trim() || !password}
+              >
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    {t('auth.signIn')}
+                    <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            </form>
+          )}
 
-            {/* Submit */}
-            <Button
-              type="submit"
-              className="w-full h-10 cursor-pointer gap-2"
-              disabled={isLoading || !isFormValid}
-            >
-              {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : mode === 'login' ? (
-                <>
-                  Sign In
-                  <ArrowRight className="h-4 w-4" />
-                </>
-              ) : (
-                <>
-                  <Sparkles className="h-4 w-4" />
-                  Create Account
-                </>
-              )}
-            </Button>
-          </form>
-
-          {/* Switch mode */}
-          <div className="text-center text-sm">
-            <span className="text-muted-foreground">
-              {mode === 'login' ? "Don't have an account?" : 'Already have an account?'}
-            </span>{' '}
-            <button
-              onClick={switchMode}
-              className="font-medium text-primary hover:underline cursor-pointer"
-            >
-              {mode === 'login' ? 'Sign up' : 'Sign in'}
-            </button>
-          </div>
+          {/* Footer hint */}
+          <p className="text-center text-xs text-muted-foreground">
+            {t('auth.demoDeployment')}
+          </p>
         </div>
       </div>
     </div>

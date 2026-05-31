@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { useWorkbookStore } from '@/lib/store';
+import { useT } from '@/lib/i18n';
 import { aggregateData, applyFilters } from '@/lib/data-engine';
 import { ChartRenderer } from './chart-renderer';
 import { EncodingShelf } from './encoding-shelf';
@@ -19,6 +20,7 @@ export function ChartCanvas() {
     duplicateChart,
   } = useWorkbookStore();
 
+  const t = useT();
   const [insightsChartId, setInsightsChartId] = useState<string | null>(null);
 
   const activeSheet = getActiveSheet();
@@ -66,7 +68,7 @@ export function ChartCanvas() {
                     {chart.xAxis.field && chart.yAxis.field && (
                       <span className="ml-2 text-[11px] font-normal text-muted-foreground">
                         {chart.yAxis.aggregation !== 'NONE' ? `${chart.yAxis.aggregation}(${chart.yAxis.field})` : chart.yAxis.field}
-                        {' by '}
+                        {` ${t('chart.by')} `}
                         {chart.xAxis.field}
                       </span>
                     )}
@@ -82,8 +84,8 @@ export function ChartCanvas() {
                           ? 'text-amber-600 bg-amber-100 dark:text-amber-400 dark:bg-amber-900/30'
                           : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                       }`}
-                      title="Generate Insights"
-                      aria-label="Generate Insights"
+                      title={t('chart.insights')}
+                      aria-label={t('chart.insights')}
                       aria-pressed={showInsights}
                     >
                       <Lightbulb className="h-3.5 w-3.5" />
@@ -91,7 +93,7 @@ export function ChartCanvas() {
                     <button
                       onClick={(e) => { e.stopPropagation(); duplicateChart(activeSheet.id, chart.id); }}
                       className="cursor-pointer rounded-md p-1 text-muted-foreground hover:text-foreground hover:bg-muted"
-                      title="Duplicate"
+                      title={t('chart.duplicate')}
                     >
                       <Copy className="h-3.5 w-3.5" />
                     </button>
@@ -99,7 +101,7 @@ export function ChartCanvas() {
                       <button
                         onClick={(e) => { e.stopPropagation(); removeChart(activeSheet.id, chart.id); }}
                         className="cursor-pointer rounded-md p-1 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
-                        title="Remove"
+                        title={t('chart.remove')}
                       >
                         <X className="h-3.5 w-3.5" />
                       </button>
@@ -129,8 +131,8 @@ export function ChartCanvas() {
               <div className="rounded-full bg-muted p-3">
                 <Plus className="h-5 w-5" aria-hidden="true" />
               </div>
-              <span className="text-sm font-medium">Add Chart</span>
-              <span className="text-[11px] text-muted-foreground/70">Click to create a new visualization</span>
+              <span className="text-sm font-medium">{t('chart.addChart')}</span>
+              <span className="text-[11px] text-muted-foreground/70">{t('chart.addChartDesc')}</span>
             </div>
           </Card>
         </div>
@@ -145,6 +147,7 @@ export function ChartCanvas() {
  */
 function ChartInsightsPanel({ chartId }: { chartId: string }) {
   const { workbook } = useWorkbookStore();
+  const t = useT();
   const activeDs = workbook.dataSources.find(
     (d) => d.id === workbook.activeDataSourceId
   );
@@ -177,7 +180,7 @@ function ChartInsightsPanel({ chartId }: { chartId: string }) {
     return (
       <div className="border-t px-3 py-2">
         <p className="text-[10px] text-muted-foreground text-center">
-          Assign fields to X and Y axes to generate insights.
+          {t('chart.insightsEmpty')}
         </p>
       </div>
     );

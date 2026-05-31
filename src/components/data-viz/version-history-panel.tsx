@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useWorkbookStore } from '@/lib/store';
+import { useT } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -29,6 +30,7 @@ export function VersionHistoryPanel() {
     getVersionHistory,
   } = useWorkbookStore();
 
+  const t = useT();
   const [isOpen, setIsOpen] = useState(false);
   const [description, setDescription] = useState('');
   const [confirmRollback, setConfirmRollback] = useState<string | null>(null);
@@ -51,10 +53,10 @@ export function VersionHistoryPanel() {
       <button
         onClick={() => setIsOpen(true)}
         className="inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
-        aria-label="Version history"
+        aria-label={t('versions.title')}
       >
         <History className="h-4 w-4" />
-        <span className="hidden sm:inline">Versions</span>
+        <span className="hidden sm:inline">{t('versions.button')}</span>
         {history.length > 0 && (
           <Badge variant="secondary" className="h-4 min-w-4 px-1 text-[10px]">
             {history.length}
@@ -70,12 +72,12 @@ export function VersionHistoryPanel() {
       <div className="flex items-center justify-between border-b px-4 py-3">
         <div className="flex items-center gap-2">
           <GitBranch className="h-4 w-4 text-primary" />
-          <h2 className="text-sm font-semibold">Version History</h2>
+          <h2 className="text-sm font-semibold">{t('versions.title')}</h2>
         </div>
         <button
           onClick={() => setIsOpen(false)}
           className="rounded-md p-1 hover:bg-accent transition-colors"
-          aria-label="Close version panel"
+          aria-label={t('versions.cancel')}
         >
           <X className="h-4 w-4" />
         </button>
@@ -84,13 +86,13 @@ export function VersionHistoryPanel() {
       {/* Save new version */}
       <div className="border-b px-4 py-3 space-y-2">
         <label className="text-xs font-medium text-muted-foreground">
-          Save current state
+          {t('versions.saveLabel')}
         </label>
         <div className="flex gap-2">
           <Input
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Describe this version..."
+            placeholder={t('versions.savePlaceholder')}
             className="h-8 text-xs"
             onKeyDown={(e) => e.key === 'Enter' && handleSave()}
           />
@@ -101,7 +103,7 @@ export function VersionHistoryPanel() {
             className="h-8 px-3 shrink-0"
           >
             <Save className="h-3.5 w-3.5 mr-1" />
-            Save
+            {t('versions.save')}
           </Button>
         </div>
       </div>
@@ -111,9 +113,9 @@ export function VersionHistoryPanel() {
         {history.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
             <History className="h-8 w-8 text-muted-foreground/40 mb-3" />
-            <p className="text-sm text-muted-foreground">No versions saved yet</p>
+            <p className="text-sm text-muted-foreground">{t('versions.noVersions')}</p>
             <p className="text-xs text-muted-foreground/70 mt-1">
-              Save a version to track your workbook changes
+              {t('versions.noVersionsDesc')}
             </p>
           </div>
         ) : (
@@ -144,7 +146,7 @@ export function VersionHistoryPanel() {
                 {confirmRollback === version.id ? (
                   <div className="mt-2 flex items-center gap-2 p-2 rounded bg-destructive/10 border border-destructive/20">
                     <span className="text-[10px] text-destructive flex-1">
-                      Restore this version?
+                      {t('versions.confirmRestore')}
                     </span>
                     <Button
                       size="sm"
@@ -152,7 +154,7 @@ export function VersionHistoryPanel() {
                       className="h-6 px-2 text-[10px]"
                       onClick={() => handleRollback(version.id)}
                     >
-                      Confirm
+                      {t('versions.confirm')}
                     </Button>
                     <Button
                       size="sm"
@@ -160,7 +162,7 @@ export function VersionHistoryPanel() {
                       className="h-6 px-2 text-[10px]"
                       onClick={() => setConfirmRollback(null)}
                     >
-                      Cancel
+                      {t('versions.cancel')}
                     </Button>
                   </div>
                 ) : (
@@ -172,7 +174,7 @@ export function VersionHistoryPanel() {
                       onClick={() => setConfirmRollback(version.id)}
                     >
                       <RotateCcw className="h-3 w-3 mr-1" />
-                      Restore
+                      {t('versions.restore')}
                     </Button>
                     <Button
                       size="sm"
@@ -181,7 +183,7 @@ export function VersionHistoryPanel() {
                       onClick={() => deleteVersion(version.id)}
                     >
                       <Trash2 className="h-3 w-3 mr-1" />
-                      Delete
+                      {t('versions.delete')}
                     </Button>
                   </div>
                 )}
@@ -194,7 +196,7 @@ export function VersionHistoryPanel() {
       {/* Footer */}
       <div className="border-t px-4 py-2">
         <p className="text-[10px] text-muted-foreground text-center">
-          {history.length} / 50 versions saved
+          {history.length} / 50 {t('versions.saved')}
         </p>
       </div>
     </div>

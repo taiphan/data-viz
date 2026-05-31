@@ -1,11 +1,13 @@
 'use client';
 
 import { useWorkbookStore } from '@/lib/store';
+import { useT } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 import { Plus, X, LayoutGrid } from 'lucide-react';
 
 export function SheetTabs() {
   const { workbook, setActiveSheet, addSheet, removeSheet } = useWorkbookStore();
+  const t = useT();
 
   return (
     <div className="flex items-center gap-1.5 border-t bg-card/50 backdrop-blur-sm px-3 py-1.5">
@@ -28,13 +30,13 @@ export function SheetTabs() {
             >
               <span>{sheet.title}</span>
               <span className={`text-[10px] ${isActive ? 'text-primary/60' : 'text-muted-foreground/60'}`}>
-                {sheet.charts.length} {sheet.charts.length === 1 ? 'chart' : 'charts'}
+                {sheet.charts.length} {sheet.charts.length === 1 ? t('sheets.chart') : t('sheets.charts')}
               </span>
               {workbook.sheets.length > 1 && (
                 <button
                   onClick={(e) => { e.stopPropagation(); removeSheet(sheet.id); }}
                   className="hidden cursor-pointer rounded p-0.5 hover:text-destructive hover:bg-destructive/10 group-hover:block transition-colors"
-                  aria-label={`Remove ${sheet.title}`}
+                  aria-label={`${t('sheets.removeSheet')} ${sheet.title}`}
                 >
                   <X className="h-3 w-3" />
                 </button>
@@ -48,7 +50,7 @@ export function SheetTabs() {
         size="icon-xs"
         className="cursor-pointer text-muted-foreground hover:text-primary shrink-0"
         onClick={addSheet}
-        aria-label="Add sheet"
+        aria-label={t('sheets.addSheet')}
       >
         <Plus className="h-3.5 w-3.5" />
       </Button>

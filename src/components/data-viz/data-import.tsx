@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo } from 'react';
 import { useWorkbookStore } from '@/lib/store';
+import { useT } from '@/lib/i18n';
 import { parseCSVToDataSource, parseJSONToDataSource } from '@/lib/data-engine';
 import { parseFile, getExcelSheets, FileConnectorOptions } from '@/lib/connectors/file-connectors';
 import { DataSource } from '@/lib/types';
@@ -91,6 +92,7 @@ interface FileOptionsProps {
   options: FileConnectorOptions;
   onOptionsChange: (options: FileConnectorOptions) => void;
   sheets: string[];
+  t: (key: string) => string;
 }
 
 function FileOptionsPanel({
@@ -99,11 +101,12 @@ function FileOptionsPanel({
   options,
   onOptionsChange,
   sheets,
+  t,
 }: FileOptionsProps) {
   if (category === 'json') {
     return (
       <p className="text-xs text-muted-foreground">
-        JSON files are parsed automatically. No additional options needed.
+        {t('import.jsonAutomatic')}
       </p>
     );
   }
@@ -114,7 +117,7 @@ function FileOptionsPanel({
     return (
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <Label htmlFor="delimiter" className="text-xs">Delimiter</Label>
+          <Label htmlFor="delimiter" className="text-xs">{t('import.delimiter')}</Label>
           <Select
             value={options.delimiter || defaultDelimiter}
             onValueChange={(v) => onOptionsChange({ ...options, delimiter: v ?? undefined })}
@@ -131,7 +134,7 @@ function FileOptionsPanel({
           </Select>
         </div>
         <div className="space-y-1">
-          <Label htmlFor="quote-char" className="text-xs">Quote Character</Label>
+          <Label htmlFor="quote-char" className="text-xs">{t('import.quoteChar')}</Label>
           <Select
             value={options.quoteChar || '"'}
             onValueChange={(v) => onOptionsChange({ ...options, quoteChar: v ?? undefined })}
@@ -146,7 +149,7 @@ function FileOptionsPanel({
           </Select>
         </div>
         <div className="space-y-1">
-          <Label htmlFor="encoding" className="text-xs">Encoding</Label>
+          <Label htmlFor="encoding" className="text-xs">{t('import.encoding')}</Label>
           <Select
             value={options.encoding || 'UTF-8'}
             onValueChange={(v) => onOptionsChange({ ...options, encoding: v ?? undefined })}
@@ -169,7 +172,7 @@ function FileOptionsPanel({
     return (
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <Label htmlFor="sheet-name" className="text-xs">Sheet</Label>
+          <Label htmlFor="sheet-name" className="text-xs">{t('import.sheet')}</Label>
           {sheets.length > 0 ? (
             <Select
               value={options.sheetName || sheets[0]}
@@ -185,11 +188,11 @@ function FileOptionsPanel({
               </SelectContent>
             </Select>
           ) : (
-            <p className="text-xs text-muted-foreground">Loading sheets...</p>
+            <p className="text-xs text-muted-foreground">{t('import.loadingSheets')}</p>
           )}
         </div>
         <div className="space-y-1">
-          <Label htmlFor="header-row" className="text-xs">Header Row</Label>
+          <Label htmlFor="header-row" className="text-xs">{t('import.headerRow')}</Label>
           <Input
             id="header-row"
             type="number"
@@ -209,7 +212,7 @@ function FileOptionsPanel({
     return (
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <Label htmlFor="pdf-pages" className="text-xs">Pages (comma-separated, blank = all)</Label>
+          <Label htmlFor="pdf-pages" className="text-xs">{t('import.pages')}</Label>
           <Input
             id="pdf-pages"
             type="text"
@@ -226,7 +229,7 @@ function FileOptionsPanel({
           />
         </div>
         <div className="space-y-1">
-          <Label htmlFor="header-row-pdf" className="text-xs">Header Row</Label>
+          <Label htmlFor="header-row-pdf" className="text-xs">{t('import.headerRow')}</Label>
           <Input
             id="header-row-pdf"
             type="number"
@@ -245,7 +248,7 @@ function FileOptionsPanel({
   if (category === 'parquet') {
     return (
       <div className="space-y-1">
-        <Label htmlFor="max-rows" className="text-xs">Max Rows (blank = all)</Label>
+        <Label htmlFor="max-rows" className="text-xs">{t('import.maxRows')}</Label>
         <Input
           id="max-rows"
           type="number"
@@ -266,7 +269,7 @@ function FileOptionsPanel({
     return (
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-1">
-          <Label htmlFor="encoding-stat" className="text-xs">Encoding</Label>
+          <Label htmlFor="encoding-stat" className="text-xs">{t('import.encoding')}</Label>
           <Select
             value={options.encoding || 'UTF-8'}
             onValueChange={(v) => onOptionsChange({ ...options, encoding: v ?? undefined })}
@@ -282,7 +285,7 @@ function FileOptionsPanel({
           </Select>
         </div>
         <div className="space-y-1">
-          <Label htmlFor="max-rows-stat" className="text-xs">Max Rows (blank = all)</Label>
+          <Label htmlFor="max-rows-stat" className="text-xs">{t('import.maxRows')}</Label>
           <Input
             id="max-rows-stat"
             type="number"
@@ -309,15 +312,16 @@ function FileOptionsPanel({
 
 interface DataPreviewProps {
   dataSource: DataSource;
+  t: (key: string) => string;
 }
 
-function DataPreview({ dataSource }: DataPreviewProps) {
+function DataPreview({ dataSource, t }: DataPreviewProps) {
   const previewRows = dataSource.rows.slice(0, 10);
   const fields = dataSource.fields;
 
   if (fields.length === 0) {
     return (
-      <p className="text-xs text-muted-foreground">No data to preview.</p>
+      <p className="text-xs text-muted-foreground">{t('import.noData')}</p>
     );
   }
 
@@ -351,8 +355,8 @@ function DataPreview({ dataSource }: DataPreviewProps) {
         </Table>
       </div>
       <div className="border-t px-2 py-1 bg-muted/30 text-[10px] text-muted-foreground">
-        Showing {previewRows.length} of {dataSource.rowCount.toLocaleString()} rows
-        • {fields.length} fields
+        {t('import.showingRows')} {previewRows.length} / {dataSource.rowCount.toLocaleString()}
+        • {fields.length} {t('import.fields')}
       </div>
     </div>
   );
@@ -370,6 +374,7 @@ type ImportStep = 'idle' | 'options' | 'preview' | 'importing';
 
 export function DataImport() {
   const { addDataSource, workbook } = useWorkbookStore();
+  const t = useT();
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -570,7 +575,7 @@ export function DataImport() {
           {/* Header */}
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold">Import File</h2>
+              <h2 className="text-lg font-semibold">{t('import.importFile')}</h2>
               {selectedFile && (
                 <p className="text-xs text-muted-foreground">
                   {selectedFile.name}
@@ -594,13 +599,14 @@ export function DataImport() {
           {step === 'options' && selectedFile && fileCategory && (
             <div className="space-y-4">
               <div className="rounded-lg border p-4 space-y-3">
-                <h3 className="text-sm font-medium">Parsing Options</h3>
+                <h3 className="text-sm font-medium">{t('import.parsingOptions')}</h3>
                 <FileOptionsPanel
                   file={selectedFile}
                   category={fileCategory}
                   options={fileOptions}
                   onOptionsChange={setFileOptions}
                   sheets={excelSheets}
+                  t={t}
                 />
               </div>
               <div className="flex gap-2 justify-end">
@@ -610,7 +616,7 @@ export function DataImport() {
                   onClick={resetImportState}
                   className="cursor-pointer"
                 >
-                  Cancel
+                  {t('import.cancel')}
                 </Button>
                 <Button
                   size="sm"
@@ -623,7 +629,7 @@ export function DataImport() {
                   ) : (
                     <Eye className="h-3.5 w-3.5" />
                   )}
-                  Preview Data
+                  {t('import.previewData')}
                 </Button>
               </div>
             </div>
@@ -632,7 +638,7 @@ export function DataImport() {
           {/* Preview Section */}
           {step === 'preview' && previewData && (
             <div className="space-y-4">
-              <DataPreview dataSource={previewData} />
+              <DataPreview dataSource={previewData} t={t} />
               <div className="flex gap-2 justify-end">
                 <Button
                   variant="outline"
@@ -640,7 +646,7 @@ export function DataImport() {
                   onClick={() => setStep('options')}
                   className="cursor-pointer"
                 >
-                  Back to Options
+                  {t('import.backToOptions')}
                 </Button>
                 <Button
                   size="sm"
@@ -648,7 +654,7 @@ export function DataImport() {
                   className="cursor-pointer gap-1.5"
                 >
                   <CheckCircle2 className="h-3.5 w-3.5" />
-                  Import {previewData.rowCount.toLocaleString()} Rows
+                  {t('import.importRows')} {previewData.rowCount.toLocaleString()}
                 </Button>
               </div>
             </div>
@@ -658,7 +664,7 @@ export function DataImport() {
           {step === 'importing' && (
             <div className="flex items-center justify-center gap-2 py-8">
               <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">Importing data...</span>
+              <span className="text-sm text-muted-foreground">{t('import.importing')}</span>
             </div>
           )}
 
@@ -683,7 +689,7 @@ export function DataImport() {
       <div className="flex items-center gap-2 border-b px-4 py-2 bg-card/30 backdrop-blur-sm">
         <div className="flex items-center gap-1.5">
           <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-[11px] font-medium text-muted-foreground hidden sm:inline">Sources</span>
+          <span className="text-[11px] font-medium text-muted-foreground hidden sm:inline">{t('import.sources')}</span>
         </div>
         <div className="flex items-center gap-1.5 overflow-x-auto">
           {workbook.dataSources.map((ds) => (
@@ -707,12 +713,12 @@ export function DataImport() {
             aria-label="Connect to data source"
           >
             <PlugZap className="h-3.5 w-3.5" aria-hidden="true" />
-            <span className="hidden sm:inline">Connect</span>
+            <span className="hidden sm:inline">{t('import.connect')}</span>
           </Button>
           <div className="relative">
             <Button variant="outline" size="sm" className="cursor-pointer text-xs h-7 px-3 gap-1.5 rounded-full">
               <Upload className="h-3.5 w-3.5" aria-hidden="true" />
-              <span className="hidden sm:inline">Add Source</span>
+              <span className="hidden sm:inline">{t('import.addSource')}</span>
             </Button>
             <input
               type="file"
@@ -739,13 +745,13 @@ export function DataImport() {
         <div className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1 text-xs text-muted-foreground mb-2">
             <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
-            Ready to visualize
+            {t('import.readyToVisualize')}
           </div>
           <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text">
-            Data Viz
+            {t('import.heroTitle')}
           </h1>
           <p className="text-base text-muted-foreground max-w-md mx-auto leading-relaxed">
-            Self-service analytics platform. Upload data, build interactive charts, create stunning dashboards.
+            {t('import.heroDescription')}
           </p>
         </div>
 
@@ -771,13 +777,13 @@ export function DataImport() {
             }`} aria-hidden="true" />
           </div>
           <p className="mb-1.5 text-base font-semibold">
-            {isProcessing ? 'Processing your file...' : 'Drop your data file here'}
+            {isProcessing ? t('import.processing') : t('import.dropTitle')}
           </p>
           <p className="text-sm text-muted-foreground">
-            or <span className="text-primary font-medium cursor-pointer hover:underline">browse</span> to choose a file
+            or <span className="text-primary font-medium cursor-pointer hover:underline">{t('import.dropBrowse')}</span> to choose a file
           </p>
           <p className="text-xs text-muted-foreground/70 mt-3">
-            Supports CSV, JSON, Excel, PDF, Parquet, TSV, and statistical formats
+            {t('import.dropHint')}
           </p>
           <input
             type="file"
@@ -801,9 +807,9 @@ export function DataImport() {
         {/* Feature cards */}
         <div className="grid grid-cols-3 gap-4">
           {[
-            { icon: '📁', label: 'Drag & Drop', desc: 'All major file formats' },
-            { icon: '🔍', label: 'Auto-Detect', desc: 'Types, roles & patterns' },
-            { icon: '🔗', label: 'Multi-Source', desc: 'Join & blend datasets' },
+            { icon: '📁', label: t('import.featureDragDrop'), desc: t('import.featureDragDropDesc') },
+            { icon: '🔍', label: t('import.featureAutoDetect'), desc: t('import.featureAutoDetectDesc') },
+            { icon: '🔗', label: t('import.featureMultiSource'), desc: t('import.featureMultiSourceDesc') },
           ].map((item) => (
             <div key={item.label} className="rounded-xl border bg-card/50 p-4 text-center hover:bg-card hover:shadow-sm transition-all duration-200">
               <span className="text-2xl mb-2 block">{item.icon}</span>
@@ -822,7 +828,7 @@ export function DataImport() {
             aria-label="Connect to data source"
           >
             <PlugZap className="h-4 w-4" aria-hidden="true" />
-            Connect to Database
+            {t('import.connectDatabase')}
           </Button>
           <span className="text-xs text-muted-foreground">or</span>
           <Button
@@ -837,7 +843,7 @@ export function DataImport() {
             }}
           >
             <FileText className="h-4 w-4" aria-hidden="true" />
-            Try Sample Data
+            {t('import.trySampleData')}
           </Button>
         </div>
 

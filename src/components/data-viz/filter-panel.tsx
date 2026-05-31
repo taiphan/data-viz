@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useWorkbookStore } from '@/lib/store';
+import { useT } from '@/lib/i18n';
 import { generateId, getUniqueValues } from '@/lib/data-engine';
 import { ChartFilter, FILTER_OPERATOR_LABELS, FilterOperator } from '@/lib/types';
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,7 @@ import { Filter, Plus, X, Eye, EyeOff } from 'lucide-react';
 
 export function FilterPanel() {
   const { workbook, getActiveChart, addChartFilter, removeChartFilter, toggleChartFilter } = useWorkbookStore();
+  const t = useT();
   const activeDs = workbook.dataSources.find((d) => d.id === workbook.activeDataSourceId);
   const activeChart = getActiveChart();
   const [isAdding, setIsAdding] = useState(false);
@@ -42,7 +44,7 @@ export function FilterPanel() {
         <div className="flex items-center gap-2">
           <Filter className="h-3.5 w-3.5 text-primary/70" aria-hidden="true" />
           <h2 className="text-xs font-semibold text-foreground">
-            Filters
+            {t('filters.title')}
           </h2>
           {activeChart.filters.length > 0 && (
             <span className="text-[10px] text-muted-foreground bg-muted rounded-full px-2 py-0.5">
@@ -53,7 +55,7 @@ export function FilterPanel() {
         <button
           onClick={() => setIsAdding(!isAdding)}
           className="cursor-pointer rounded-md p-1 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-          title="Add filter"
+          title={t('filters.addFilter')}
         >
           <Plus className="h-3.5 w-3.5" />
         </button>
@@ -69,7 +71,7 @@ export function FilterPanel() {
                 onChange={(e) => setNewField(e.target.value)}
                 className="w-full rounded border px-2 py-1 text-xs bg-background"
               >
-                <option value="">Select field...</option>
+                <option value="">{t('filters.selectField')}</option>
                 {activeDs.fields.map((f) => (
                   <option key={f.id} value={f.name}>{f.name}</option>
                 ))}
@@ -86,15 +88,15 @@ export function FilterPanel() {
               <Input
                 value={newValue}
                 onChange={(e) => setNewValue(e.target.value)}
-                placeholder="Value (comma-separated for 'in')"
+                placeholder={t('filters.valuePlaceholder')}
                 className="h-7 text-xs"
               />
               <div className="flex gap-1">
                 <Button size="sm" className="h-6 text-[10px] flex-1 cursor-pointer" onClick={handleAdd}>
-                  Add
+                  {t('filters.add')}
                 </Button>
                 <Button size="sm" variant="outline" className="h-6 text-[10px] cursor-pointer" onClick={() => setIsAdding(false)}>
-                  Cancel
+                  {t('filters.cancel')}
                 </Button>
               </div>
             </div>
@@ -103,7 +105,7 @@ export function FilterPanel() {
           {/* Active filters */}
           {activeChart.filters.length === 0 && !isAdding && (
             <p className="text-[10px] text-muted-foreground text-center py-4">
-              No filters applied
+              {t('filters.noFilters')}
             </p>
           )}
 
@@ -120,14 +122,14 @@ export function FilterPanel() {
                   <button
                     onClick={() => toggleChartFilter(activeChart.id, filter.id)}
                     className="cursor-pointer p-0.5 text-muted-foreground hover:text-foreground"
-                    title={filter.enabled ? 'Disable' : 'Enable'}
+                    title={filter.enabled ? t('filters.disable') : t('filters.enable')}
                   >
                     {filter.enabled ? <Eye className="h-2.5 w-2.5" /> : <EyeOff className="h-2.5 w-2.5" />}
                   </button>
                   <button
                     onClick={() => removeChartFilter(activeChart.id, filter.id)}
                     className="cursor-pointer p-0.5 text-muted-foreground hover:text-destructive"
-                    title="Remove"
+                    title={t('filters.remove')}
                   >
                     <X className="h-2.5 w-2.5" />
                   </button>
