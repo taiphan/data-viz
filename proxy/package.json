@@ -1,0 +1,52 @@
+{
+  "name": "data-viz-connector-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Connector Proxy for Data Viz — securely manages database connections and query execution",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src/",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "extract": "tsx src/cli/extract-cli.ts"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bullmq": "^5.77.6",
+    "commander": "^12.1.0",
+    "cors": "2.8.5",
+    "dotenv": "16.4.7",
+    "express": "4.21.2",
+    "helmet": "8.0.0",
+    "ioredis": "5.4.2",
+    "jsonwebtoken": "^9.0.3",
+    "mssql": "11.0.1",
+    "mysql2": "3.12.0",
+    "pg": "8.13.1",
+    "pino": "9.6.0",
+    "pino-pretty": "13.0.0",
+    "uuid": "11.1.0",
+    "zod": "3.24.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "2.8.17",
+    "@types/express": "5.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/mssql": "^12.3.0",
+    "@types/node": "^22.10.5",
+    "@types/pg": "^8.20.0",
+    "@types/supertest": "^7.2.0",
+    "@types/uuid": "10.0.0",
+    "fast-check": "3.23.2",
+    "supertest": "^7.2.2",
+    "tsx": "4.19.2",
+    "typescript": "5.7.3",
+    "vitest": "2.1.8"
+  }
+}

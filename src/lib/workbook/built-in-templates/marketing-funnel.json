@@ -1,0 +1,140 @@
+{
+  "id": "builtin-marketing-funnel",
+  "name": "Marketing Funnel",
+  "description": "Visualize conversion stages from awareness to purchase with funnel charts and campaign metrics.",
+  "category": "marketing",
+  "sheets": [
+    {
+      "id": "sheet-funnel-overview",
+      "title": "Funnel Overview",
+      "charts": [
+        {
+          "id": "chart-conversion-rate",
+          "title": "Overall Conversion Rate",
+          "chartType": "kpi",
+          "xAxis": { "field": null, "aggregation": "NONE" },
+          "yAxis": { "field": "conversion_rate", "aggregation": "AVG" },
+          "color": { "field": null, "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": null,
+          "sortOrder": "none",
+          "showTrendLine": false,
+          "showDataLabels": true,
+          "showLegend": false,
+          "colorPalette": ["#8B5CF6"],
+          "width": 3,
+          "height": 2
+        },
+        {
+          "id": "chart-total-leads",
+          "title": "Total Leads",
+          "chartType": "kpi",
+          "xAxis": { "field": null, "aggregation": "NONE" },
+          "yAxis": { "field": "leads", "aggregation": "SUM" },
+          "color": { "field": null, "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": null,
+          "sortOrder": "none",
+          "showTrendLine": false,
+          "showDataLabels": true,
+          "showLegend": false,
+          "colorPalette": ["#06B6D4"],
+          "width": 3,
+          "height": 2
+        },
+        {
+          "id": "chart-funnel-stages",
+          "title": "Funnel Stages",
+          "chartType": "horizontal-bar",
+          "xAxis": { "field": "stage", "aggregation": "NONE" },
+          "yAxis": { "field": "count", "aggregation": "SUM" },
+          "color": { "field": "stage", "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": null,
+          "sortOrder": "none",
+          "showTrendLine": false,
+          "showDataLabels": true,
+          "showLegend": false,
+          "colorPalette": ["#8B5CF6", "#A78BFA", "#C4B5FD", "#DDD6FE", "#EDE9FE"],
+          "width": 6,
+          "height": 4
+        },
+        {
+          "id": "chart-leads-by-channel",
+          "title": "Leads by Channel",
+          "chartType": "donut",
+          "xAxis": { "field": "channel", "aggregation": "NONE" },
+          "yAxis": { "field": "leads", "aggregation": "SUM" },
+          "color": { "field": "channel", "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": null,
+          "sortOrder": "none",
+          "showTrendLine": false,
+          "showDataLabels": true,
+          "showLegend": true,
+          "colorPalette": ["#3B82F6", "#EF4444", "#10B981", "#F59E0B", "#EC4899"],
+          "width": 6,
+          "height": 4
+        },
+        {
+          "id": "chart-conversion-trend",
+          "title": "Conversion Trend",
+          "chartType": "area",
+          "xAxis": { "field": "date", "aggregation": "NONE" },
+          "yAxis": { "field": "conversion_rate", "aggregation": "AVG" },
+          "color": { "field": null, "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": "date",
+          "sortOrder": "asc",
+          "showTrendLine": true,
+          "showDataLabels": false,
+          "showLegend": false,
+          "colorPalette": ["#10B981"],
+          "width": 12,
+          "height": 4
+        }
+      ],
+      "globalFilters": [],
+      "layout": "auto"
+    }
+  ],
+  "parameters": [],
+  "parameterActions": [],
+  "groups": [],
+  "bins": [],
+  "joins": [],
+  "transforms": [],
+  "placeholderDataSources": [
+    {
+      "id": "ds-funnel-placeholder",
+      "name": "Marketing Funnel Data",
+      "fileName": "marketing-funnel.csv",
+      "fields": [
+        { "id": "f-stage", "name": "stage", "originalName": "stage", "type": "string", "role": "dimension", "sampleValues": ["Awareness", "Interest", "Consideration", "Intent", "Purchase"], "nullCount": 0, "uniqueCount": 5 },
+        { "id": "f-channel", "name": "channel", "originalName": "channel", "type": "string", "role": "dimension", "sampleValues": ["Organic", "Paid", "Social", "Email", "Referral"], "nullCount": 0, "uniqueCount": 5 },
+        { "id": "f-date", "name": "date", "originalName": "date", "type": "date", "role": "dimension", "sampleValues": ["2024-01-01", "2024-02-01", "2024-03-01"], "nullCount": 0, "uniqueCount": 12 },
+        { "id": "f-count", "name": "count", "originalName": "count", "type": "number", "role": "measure", "sampleValues": ["10000", "6500", "3200"], "nullCount": 0, "uniqueCount": 60 },
+        { "id": "f-leads", "name": "leads", "originalName": "leads", "type": "number", "role": "measure", "sampleValues": ["500", "320", "180"], "nullCount": 0, "uniqueCount": 40 },
+        { "id": "f-conversion-rate", "name": "conversion_rate", "originalName": "conversion_rate", "type": "number", "role": "measure", "sampleValues": ["3.2", "4.1", "2.8"], "nullCount": 0, "uniqueCount": 30 }
+      ],
+      "sampleRows": [
+        { "stage": "Awareness", "channel": "Organic", "date": "2024-01-01", "count": 10000, "leads": 500, "conversion_rate": 5.0 },
+        { "stage": "Interest", "channel": "Paid", "date": "2024-01-01", "count": 6500, "leads": 320, "conversion_rate": 4.9 },
+        { "stage": "Consideration", "channel": "Social", "date": "2024-02-01", "count": 3200, "leads": 180, "conversion_rate": 5.6 },
+        { "stage": "Intent", "channel": "Email", "date": "2024-02-01", "count": 1800, "leads": 120, "conversion_rate": 6.7 },
+        { "stage": "Purchase", "channel": "Referral", "date": "2024-03-01", "count": 900, "leads": 90, "conversion_rate": 10.0 }
+      ]
+    }
+  ],
+  "createdAt": "2024-01-01T00:00:00.000Z"
+}

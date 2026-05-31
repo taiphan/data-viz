@@ -1,0 +1,31 @@
+employee_id,name,department,job_title,hire_date,salary,bonus,performance_score,satisfaction,tenure_years,is_remote,city
+E001,Alice Johnson,Engineering,Senior Developer,2019-03-15,125000,15000,4.5,8.2,5,true,San Francisco
+E002,Bob Smith,Engineering,Staff Engineer,2017-06-01,155000,22000,4.8,9.1,7,true,Seattle
+E003,Carol Williams,Marketing,Marketing Manager,2020-01-10,95000,12000,4.2,7.5,4,false,New York
+E004,David Brown,Sales,Account Executive,2021-07-20,85000,25000,4.6,8.0,3,false,Chicago
+E005,Eva Martinez,Engineering,Junior Developer,2023-02-01,82000,5000,3.8,7.8,1,true,Austin
+E006,Frank Lee,Finance,Financial Analyst,2018-11-05,105000,10000,4.1,6.9,6,false,New York
+E007,Grace Kim,Engineering,DevOps Engineer,2020-08-15,118000,14000,4.4,8.5,4,true,Portland
+E008,Henry Davis,Sales,Sales Director,2016-04-22,145000,35000,4.7,8.8,8,false,Boston
+E009,Iris Chen,Marketing,Content Strategist,2022-05-10,78000,8000,3.9,7.2,2,true,Denver
+E010,Jack Wilson,Engineering,Tech Lead,2018-01-08,140000,20000,4.6,8.9,6,true,San Francisco
+E011,Karen Taylor,HR,HR Manager,2019-09-12,98000,9000,4.3,7.6,5,false,Chicago
+E012,Leo Garcia,Finance,CFO,2015-02-28,195000,45000,4.9,9.3,9,false,New York
+E013,Mia Anderson,Engineering,Frontend Developer,2021-11-01,95000,8000,4.0,7.4,3,true,Seattle
+E014,Nathan Thomas,Sales,Business Dev Rep,2022-08-15,72000,18000,4.1,7.0,2,false,Dallas
+E015,Olivia Jackson,Marketing,VP Marketing,2017-03-20,160000,30000,4.7,8.6,7,false,San Francisco
+E016,Peter White,Engineering,Backend Developer,2020-06-01,110000,12000,4.3,8.1,4,true,Austin
+E017,Quinn Harris,Finance,Accountant,2021-01-15,75000,6000,3.7,6.5,3,false,Chicago
+E018,Rachel Martin,Sales,Sales Manager,2019-04-10,115000,28000,4.5,8.3,5,false,Boston
+E019,Sam Robinson,Engineering,Data Engineer,2020-10-20,120000,13000,4.4,8.4,4,true,Denver
+E020,Tina Clark,HR,Recruiter,2022-03-01,68000,5000,3.6,6.8,2,false,Portland
+E021,Uma Lewis,Engineering,ML Engineer,2019-07-15,135000,18000,4.6,8.7,5,true,San Francisco
+E022,Victor Hall,Marketing,SEO Specialist,2023-01-10,72000,4000,3.5,7.1,1,true,Austin
+E023,Wendy Young,Finance,Financial Controller,2018-05-20,125000,15000,4.4,7.9,6,false,New York
+E024,Xavier King,Sales,Enterprise AE,2020-02-14,95000,32000,4.8,8.5,4,false,Dallas
+E025,Yuki Wright,Engineering,QA Engineer,2021-09-01,88000,7000,3.9,7.3,3,true,Seattle
+E026,Zach Scott,Engineering,Principal Engineer,2016-01-05,175000,28000,4.9,9.2,8,true,San Francisco
+E027,Amy Green,Marketing,Brand Designer,2022-06-15,82000,6000,4.0,7.6,2,false,Portland
+E028,Brian Adams,Sales,SDR,2023-04-01,62000,12000,3.8,6.9,1,false,Chicago
+E029,Chloe Baker,Finance,Treasury Analyst,2020-12-01,92000,8000,4.2,7.4,4,false,Boston
+E030,Derek Nelson,Engineering,Security Engineer,2019-08-10,130000,16000,4.5,8.6,5,true,Denver

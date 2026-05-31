@@ -1,0 +1,78 @@
+import { ConnectorDefinition } from '../types';
+
+export const cloudStorageConnectors: ConnectorDefinition[] = [
+  {
+    id: 'amazon-s3',
+    name: 'Amazon S3',
+    category: 'cloud-storage',
+    icon: 'cloud',
+    description: 'Access and import files from Amazon S3 buckets.',
+    authMethods: ['api-key', 'iam-role'],
+    fields: [
+      { id: 'region', label: 'AWS Region', type: 'text', placeholder: 'us-east-1', required: true },
+      { id: 'bucket', label: 'Bucket Name', type: 'text', required: true },
+      { id: 'prefix', label: 'Path Prefix', type: 'text', required: false, placeholder: 'data/' },
+      { id: 'accessKeyId', label: 'Access Key ID', type: 'password', required: true },
+      { id: 'secretAccessKey', label: 'Secret Access Key', type: 'password', required: true },
+    ],
+    supportsSchemaDiscovery: false,
+    supportsCustomQuery: false,
+    proxyRequired: false,
+  },
+  {
+    id: 'box',
+    name: 'Box',
+    category: 'cloud-storage',
+    icon: 'box',
+    description: 'Access and import files from Box cloud storage.',
+    authMethods: ['oauth2'],
+    fields: [
+      { id: 'oauth', label: 'Sign in with Box', type: 'oauth-button', required: true },
+    ],
+    supportsSchemaDiscovery: false,
+    supportsCustomQuery: false,
+    proxyRequired: false,
+  },
+  {
+    id: 'dropbox',
+    name: 'Dropbox',
+    category: 'cloud-storage',
+    icon: 'cloud',
+    description: 'Access and import files from Dropbox cloud storage.',
+    authMethods: ['oauth2'],
+    fields: [
+      { id: 'oauth', label: 'Sign in with Dropbox', type: 'oauth-button', required: true },
+    ],
+    supportsSchemaDiscovery: false,
+    supportsCustomQuery: false,
+    proxyRequired: false,
+  },
+  {
+    id: 'google-drive',
+    name: 'Google Drive',
+    category: 'cloud-storage',
+    icon: 'hard-drive',
+    description: 'Access and import files from Google Drive.',
+    authMethods: ['oauth2'],
+    fields: [
+      { id: 'oauth', label: 'Sign in with Google', type: 'oauth-button', required: true },
+    ],
+    supportsSchemaDiscovery: false,
+    supportsCustomQuery: false,
+    proxyRequired: false,
+  },
+  {
+    id: 'onedrive',
+    name: 'OneDrive',
+    category: 'cloud-storage',
+    icon: 'cloud',
+    description: 'Access and import files from Microsoft OneDrive.',
+    authMethods: ['oauth2'],
+    fields: [
+      { id: 'oauth', label: 'Sign in with Microsoft', type: 'oauth-button', required: true },
+    ],
+    supportsSchemaDiscovery: false,
+    supportsCustomQuery: false,
+    proxyRequired: false,
+  },
+];

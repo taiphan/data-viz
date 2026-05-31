@@ -1,0 +1,41 @@
+order_id,order_date,customer_id,customer_name,country,city,product_category,product_name,unit_price,quantity,total_revenue,shipping_method,payment_method,order_status,return_flag
+ORD-1001,2024-01-02,C101,John Miller,USA,New York,Electronics,Wireless Earbuds,79.99,2,159.98,Express,Credit Card,Delivered,false
+ORD-1002,2024-01-02,C102,Sarah Connor,UK,London,Clothing,Winter Jacket,129.99,1,129.99,Standard,PayPal,Delivered,false
+ORD-1003,2024-01-03,C103,Takeshi Yamada,Japan,Tokyo,Electronics,Smart Watch,299.99,1,299.99,Express,Credit Card,Delivered,false
+ORD-1004,2024-01-03,C104,Maria Garcia,Spain,Madrid,Home & Garden,Plant Pot Set,45.99,3,137.97,Standard,Debit Card,Delivered,true
+ORD-1005,2024-01-04,C105,Hans Mueller,Germany,Berlin,Electronics,Bluetooth Speaker,149.99,1,149.99,Standard,PayPal,Delivered,false
+ORD-1006,2024-01-05,C106,Lisa Park,USA,Los Angeles,Clothing,Running Shoes,89.99,2,179.98,Express,Credit Card,Delivered,false
+ORD-1007,2024-01-05,C107,Pierre Dupont,France,Paris,Food & Beverage,Coffee Beans Premium,24.99,5,124.95,Standard,Credit Card,Delivered,false
+ORD-1008,2024-01-06,C108,Anna Kowalski,Poland,Warsaw,Home & Garden,LED Desk Lamp,59.99,2,119.98,Standard,Debit Card,Delivered,false
+ORD-1009,2024-01-07,C109,James Wilson,USA,Chicago,Electronics,Noise Cancelling Headphones,249.99,1,249.99,Express,Credit Card,Delivered,false
+ORD-1010,2024-01-07,C110,Yuki Tanaka,Japan,Osaka,Clothing,Silk Scarf,69.99,2,139.98,Standard,PayPal,Delivered,true
+ORD-1011,2024-01-08,C111,Emma Brown,UK,Manchester,Food & Beverage,Organic Tea Set,34.99,3,104.97,Standard,Debit Card,Delivered,false
+ORD-1012,2024-01-09,C112,Carlos Ruiz,Mexico,Mexico City,Electronics,Tablet Stand,39.99,4,159.96,Standard,Credit Card,Shipped,false
+ORD-1013,2024-01-09,C113,Sophie Martin,France,Lyon,Clothing,Cashmere Sweater,199.99,1,199.99,Express,Credit Card,Delivered,false
+ORD-1014,2024-01-10,C114,Michael Chen,USA,San Francisco,Electronics,USB-C Hub Pro,89.99,2,179.98,Express,PayPal,Delivered,false
+ORD-1015,2024-01-11,C115,Olga Petrov,Russia,Moscow,Home & Garden,Smart Thermostat,179.99,1,179.99,Standard,Credit Card,Delivered,false
+ORD-1016,2024-01-12,C116,David Kim,South Korea,Seoul,Electronics,Portable Charger,49.99,3,149.97,Standard,Debit Card,Delivered,false
+ORD-1017,2024-01-12,C117,Isabella Rossi,Italy,Milan,Clothing,Leather Belt,59.99,2,119.98,Standard,PayPal,Delivered,false
+ORD-1018,2024-01-13,C118,Robert Taylor,USA,Houston,Food & Beverage,Protein Powder,54.99,2,109.98,Standard,Credit Card,Shipped,false
+ORD-1019,2024-01-14,C119,Aisha Khan,UAE,Dubai,Electronics,Smart Home Hub,199.99,1,199.99,Express,Credit Card,Delivered,false
+ORD-1020,2024-01-14,C120,Thomas Anderson,Australia,Sydney,Home & Garden,Robot Vacuum,399.99,1,399.99,Express,PayPal,Delivered,false
+ORD-1021,2024-01-15,C101,John Miller,USA,New York,Clothing,Denim Jacket,99.99,1,99.99,Standard,Credit Card,Delivered,false
+ORD-1022,2024-01-16,C121,Nina Johansson,Sweden,Stockholm,Electronics,Wireless Charger,34.99,2,69.98,Standard,Debit Card,Delivered,false
+ORD-1023,2024-01-16,C122,Ahmed Hassan,Egypt,Cairo,Food & Beverage,Spice Collection,42.99,2,85.98,Standard,Credit Card,Shipped,false
+ORD-1024,2024-01-17,C123,Laura Schmidt,Germany,Munich,Clothing,Yoga Pants,54.99,3,164.97,Standard,PayPal,Delivered,true
+ORD-1025,2024-01-18,C124,Ryan O'Brien,Ireland,Dublin,Electronics,Gaming Mouse,79.99,1,79.99,Express,Credit Card,Delivered,false
+ORD-1026,2024-01-19,C125,Mei Lin,China,Shanghai,Home & Garden,Air Purifier,249.99,1,249.99,Express,Credit Card,Delivered,false
+ORD-1027,2024-01-19,C126,Paulo Santos,Brazil,Sao Paulo,Clothing,Sneakers Limited,159.99,1,159.99,Standard,Debit Card,Delivered,false
+ORD-1028,2024-01-20,C127,Jennifer Lee,USA,Seattle,Food & Beverage,Matcha Powder,29.99,4,119.96,Standard,PayPal,Delivered,false
+ORD-1029,2024-01-21,C128,Raj Patel,India,Mumbai,Electronics,Webcam 4K,129.99,1,129.99,Standard,Credit Card,Delivered,false
+ORD-1030,2024-01-21,C129,Charlotte White,UK,Edinburgh,Home & Garden,Scented Candle Set,44.99,3,134.97,Standard,Debit Card,Delivered,false
+ORD-1031,2024-01-22,C130,Alex Novak,Czech Republic,Prague,Electronics,Mechanical Keyboard,139.99,1,139.99,Standard,PayPal,Delivered,false
+ORD-1032,2024-01-23,C131,Diana Cruz,Philippines,Manila,Clothing,Linen Shirt,49.99,2,99.98,Standard,Credit Card,Shipped,false
+ORD-1033,2024-01-24,C132,Mark Johnson,USA,Denver,Electronics,Action Camera,329.99,1,329.99,Express,Credit Card,Delivered,false
+ORD-1034,2024-01-24,C133,Fatima Al-Rashid,Saudi Arabia,Riyadh,Home & Garden,Smart Lock,189.99,1,189.99,Express,Credit Card,Delivered,false
+ORD-1035,2024-01-25,C134,Lucas Fernandez,Argentina,Buenos Aires,Food & Beverage,Yerba Mate Set,19.99,5,99.95,Standard,Debit Card,Delivered,false
+ORD-1036,2024-01-26,C135,Emily Watson,Canada,Toronto,Clothing,Puffer Vest,119.99,1,119.99,Standard,PayPal,Delivered,false
+ORD-1037,2024-01-27,C136,Kenji Sato,Japan,Kyoto,Electronics,E-Reader,179.99,1,179.99,Standard,Credit Card,Delivered,false
+ORD-1038,2024-01-28,C137,Sophia Muller,Austria,Vienna,Home & Garden,Indoor Herb Garden,69.99,2,139.98,Standard,Debit Card,Delivered,true
+ORD-1039,2024-01-29,C138,Chris Evans,USA,Boston,Electronics,Drone Mini,449.99,1,449.99,Express,Credit Card,Delivered,false
+ORD-1040,2024-01-30,C139,Priya Sharma,India,Delhi,Clothing,Silk Saree,89.99,2,179.98,Standard,PayPal,Delivered,false

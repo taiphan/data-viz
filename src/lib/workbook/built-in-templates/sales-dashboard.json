@@ -1,0 +1,139 @@
+{
+  "id": "builtin-sales-dashboard",
+  "name": "Sales Dashboard",
+  "description": "Track revenue, orders, and regional performance with bar charts, KPIs, and trend lines.",
+  "category": "sales",
+  "sheets": [
+    {
+      "id": "sheet-sales-overview",
+      "title": "Sales Overview",
+      "charts": [
+        {
+          "id": "chart-revenue-kpi",
+          "title": "Total Revenue",
+          "chartType": "kpi",
+          "xAxis": { "field": null, "aggregation": "NONE" },
+          "yAxis": { "field": "revenue", "aggregation": "SUM" },
+          "color": { "field": null, "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": null,
+          "sortOrder": "none",
+          "showTrendLine": false,
+          "showDataLabels": true,
+          "showLegend": false,
+          "colorPalette": ["#3B82F6"],
+          "width": 3,
+          "height": 2
+        },
+        {
+          "id": "chart-orders-kpi",
+          "title": "Total Orders",
+          "chartType": "kpi",
+          "xAxis": { "field": null, "aggregation": "NONE" },
+          "yAxis": { "field": "orders", "aggregation": "COUNT" },
+          "color": { "field": null, "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": null,
+          "sortOrder": "none",
+          "showTrendLine": false,
+          "showDataLabels": true,
+          "showLegend": false,
+          "colorPalette": ["#10B981"],
+          "width": 3,
+          "height": 2
+        },
+        {
+          "id": "chart-revenue-by-region",
+          "title": "Revenue by Region",
+          "chartType": "bar",
+          "xAxis": { "field": "region", "aggregation": "NONE" },
+          "yAxis": { "field": "revenue", "aggregation": "SUM" },
+          "color": { "field": null, "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": "revenue",
+          "sortOrder": "desc",
+          "showTrendLine": false,
+          "showDataLabels": true,
+          "showLegend": false,
+          "colorPalette": ["#3B82F6", "#EF4444", "#10B981", "#F59E0B"],
+          "width": 6,
+          "height": 4
+        },
+        {
+          "id": "chart-revenue-trend",
+          "title": "Revenue Trend",
+          "chartType": "line",
+          "xAxis": { "field": "date", "aggregation": "NONE" },
+          "yAxis": { "field": "revenue", "aggregation": "SUM" },
+          "color": { "field": null, "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": "date",
+          "sortOrder": "asc",
+          "showTrendLine": true,
+          "showDataLabels": false,
+          "showLegend": false,
+          "colorPalette": ["#8B5CF6"],
+          "width": 6,
+          "height": 4
+        },
+        {
+          "id": "chart-product-breakdown",
+          "title": "Sales by Product",
+          "chartType": "pie",
+          "xAxis": { "field": "product", "aggregation": "NONE" },
+          "yAxis": { "field": "revenue", "aggregation": "SUM" },
+          "color": { "field": "product", "aggregation": "NONE" },
+          "size": { "field": null, "aggregation": "NONE" },
+          "label": { "field": null, "aggregation": "NONE" },
+          "filters": [],
+          "sortBy": null,
+          "sortOrder": "none",
+          "showTrendLine": false,
+          "showDataLabels": true,
+          "showLegend": true,
+          "colorPalette": ["#3B82F6", "#EF4444", "#10B981", "#F59E0B", "#8B5CF6"],
+          "width": 6,
+          "height": 4
+        }
+      ],
+      "globalFilters": [],
+      "layout": "auto"
+    }
+  ],
+  "parameters": [],
+  "parameterActions": [],
+  "groups": [],
+  "bins": [],
+  "joins": [],
+  "transforms": [],
+  "placeholderDataSources": [
+    {
+      "id": "ds-sales-placeholder",
+      "name": "Sales Data",
+      "fileName": "sales-data.csv",
+      "fields": [
+        { "id": "f-region", "name": "region", "originalName": "region", "type": "string", "role": "dimension", "sampleValues": ["North", "South", "East", "West"], "nullCount": 0, "uniqueCount": 4 },
+        { "id": "f-product", "name": "product", "originalName": "product", "type": "string", "role": "dimension", "sampleValues": ["Widget A", "Widget B", "Widget C"], "nullCount": 0, "uniqueCount": 3 },
+        { "id": "f-date", "name": "date", "originalName": "date", "type": "date", "role": "dimension", "sampleValues": ["2024-01-01", "2024-02-01", "2024-03-01"], "nullCount": 0, "uniqueCount": 12 },
+        { "id": "f-revenue", "name": "revenue", "originalName": "revenue", "type": "number", "role": "measure", "sampleValues": ["15000", "22000", "18500"], "nullCount": 0, "uniqueCount": 50 },
+        { "id": "f-orders", "name": "orders", "originalName": "orders", "type": "number", "role": "measure", "sampleValues": ["120", "185", "142"], "nullCount": 0, "uniqueCount": 30 }
+      ],
+      "sampleRows": [
+        { "region": "North", "product": "Widget A", "date": "2024-01-01", "revenue": 15000, "orders": 120 },
+        { "region": "South", "product": "Widget B", "date": "2024-02-01", "revenue": 22000, "orders": 185 },
+        { "region": "East", "product": "Widget C", "date": "2024-03-01", "revenue": 18500, "orders": 142 },
+        { "region": "West", "product": "Widget A", "date": "2024-04-01", "revenue": 12000, "orders": 95 },
+        { "region": "North", "product": "Widget B", "date": "2024-05-01", "revenue": 28000, "orders": 210 }
+      ]
+    }
+  ],
+  "createdAt": "2024-01-01T00:00:00.000Z"
+}
