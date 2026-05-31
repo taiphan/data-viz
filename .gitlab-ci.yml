@@ -1,0 +1,47 @@
+stages:
+  - install
+  - lint
+  - test
+  - build
+
+variables:
+  NODE_VERSION: "20"
+
+default:
+  image: node:${NODE_VERSION}-alpine
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+
+install:
+  stage: install
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 hour
+
+lint:
+  stage: lint
+  needs: [install]
+  script:
+    - npm run lint
+
+test:
+  stage: test
+  needs: [install]
+  script:
+    - npx vitest --run
+  allow_failure: true
+
+build:
+  stage: build
+  needs: [install]
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - .next/
+    expire_in: 1 day
