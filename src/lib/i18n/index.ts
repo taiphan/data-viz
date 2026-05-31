@@ -49,7 +49,7 @@ export function useTranslations(): Translations {
 export function useT(): (key: string) => string {
   const locale = useI18nStore((s) => s.locale);
   return (key: string): string => {
-    const dict = translations[locale] as Record<string, string>;
+    const dict = translations[locale] as unknown as Record<string, string>;
     return dict[key] ?? key;
   };
 }

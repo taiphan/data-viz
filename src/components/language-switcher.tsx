@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useLocaleInfo } from '@/lib/i18n';
+import { useLocaleInfo, useT } from '@/lib/i18n';
 import type { Locale } from '@/lib/i18n';
 import { Languages } from 'lucide-react';
 
 export function LanguageSwitcher() {
   const { locale, setLocale, allLocales } = useLocaleInfo();
+  const t = useT();
   const [open, setOpen] = useState(false);
 
   const current = allLocales.find((l) => l.id === locale) ?? allLocales[0];
@@ -16,7 +17,7 @@ export function LanguageSwitcher() {
       <button
         onClick={() => setOpen(!open)}
         className="inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
-        aria-label="Change language"
+        aria-label={t('language.label')}
         aria-expanded={open}
       >
         <Languages className="h-4 w-4" />
@@ -31,7 +32,7 @@ export function LanguageSwitcher() {
           />
           <div className="absolute right-0 top-full z-50 mt-1 w-40 rounded-lg border bg-popover p-1.5 shadow-lg">
             <p className="px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-muted-foreground/70">
-              Language
+              {t('language.label')}
             </p>
             {allLocales.map(({ id, label, flag }) => (
               <button
