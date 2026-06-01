@@ -4,6 +4,7 @@ import { useAuthStore } from '@/lib/auth-store';
 import { useWorkbookStore } from '@/lib/store';
 import { AuthPage } from '@/components/auth-page';
 import { RoleGuide } from '@/components/role-guide';
+import { KeyboardShortcuts } from '@/components/keyboard-shortcuts';
 import { AppHeader } from '@/components/data-viz/app-header';
 import { DataImport } from '@/components/data-viz/data-import';
 import { FieldPanel } from '@/components/data-viz/field-panel';
@@ -32,6 +33,7 @@ export default function DataVizPage() {
         <AppHeader />
         <DataImport />
         <RoleGuide />
+        <KeyboardShortcuts />
       </div>
     );
   }
@@ -71,6 +73,9 @@ export default function DataVizPage() {
 
       {/* Role-based onboarding guide */}
       <RoleGuide />
+
+      {/* Keyboard shortcuts (? to show help) */}
+      <KeyboardShortcuts />
     </div>
   );
 }

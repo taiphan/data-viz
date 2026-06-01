@@ -154,4 +154,24 @@ export const vi: Translations = {
   'guide.step': 'Bước',
   'guide.of': 'trên',
   'guide.openGuide': 'Trợ giúp & Hướng dẫn',
+
+  // Sample data
+  'import.sampleDataTitle': 'Dùng thử dữ liệu mẫu',
+  'import.sampleDataSubtitle': 'Chọn một bộ dữ liệu có sẵn để bắt đầu khám phá ngay.',
+  'import.sampleDataHint': 'Biểu đồ tự cấu hình với chiều và số đo đầu tiên.',
+
+  // Keyboard shortcuts
+  'shortcuts.title': 'Phím tắt',
+  'shortcuts.openHelp': 'Hiển thị trợ giúp',
+  'shortcuts.openGuide': 'Mở hướng dẫn onboarding',
+  'shortcuts.toggleTheme': 'Đổi chủ đề',
+  'shortcuts.openSearch': 'Tìm trường',
+  'shortcuts.addChart': 'Thêm biểu đồ',
+  'shortcuts.duplicateChart': 'Nhân bản biểu đồ',
+  'shortcuts.removeChart': 'Xóa biểu đồ',
+  'shortcuts.escape': 'Đóng hộp thoại',
+
+  // Common (extra)
+  'common.cancel': 'Hủy',
+  'common.fields': 'trường',
 };

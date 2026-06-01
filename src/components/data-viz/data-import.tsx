@@ -26,6 +26,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { ConnectorFlowDialog } from '@/components/data-viz/connectors/connector-flow-dialog';
+import { SampleDataDialog } from '@/components/data-viz/sample-data-dialog';
 import {
   Upload,
   FileText,
@@ -379,6 +380,7 @@ export function DataImport() {
   const [error, setError] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [connectorDialogOpen, setConnectorDialogOpen] = useState(false);
+  const [sampleDialogOpen, setSampleDialogOpen] = useState(false);
 
   // Extended state for file options flow
   const [step, setStep] = useState<ImportStep>('idle');
@@ -834,13 +836,7 @@ export function DataImport() {
           <Button
             variant="ghost"
             className="gap-2 cursor-pointer h-10 px-5 text-muted-foreground"
-            onClick={() => {
-              // Load sample data
-              const link = document.createElement('a');
-              link.href = '/sample-sales-dashboard.csv';
-              link.download = 'sample-sales-dashboard.csv';
-              link.click();
-            }}
+            onClick={() => setSampleDialogOpen(true)}
           >
             <FileText className="h-4 w-4" aria-hidden="true" />
             {t('import.trySampleData')}
@@ -850,6 +846,10 @@ export function DataImport() {
         <ConnectorFlowDialog
           open={connectorDialogOpen}
           onOpenChange={setConnectorDialogOpen}
+        />
+        <SampleDataDialog
+          open={sampleDialogOpen}
+          onOpenChange={setSampleDialogOpen}
         />
       </div>
     </div>

@@ -154,4 +154,24 @@ export interface Translations {
   'guide.step': string;
   'guide.of': string;
   'guide.openGuide': string;
+
+  // Sample data
+  'import.sampleDataTitle': string;
+  'import.sampleDataSubtitle': string;
+  'import.sampleDataHint': string;
+
+  // Keyboard shortcuts
+  'shortcuts.title': string;
+  'shortcuts.openHelp': string;
+  'shortcuts.openGuide': string;
+  'shortcuts.toggleTheme': string;
+  'shortcuts.openSearch': string;
+  'shortcuts.addChart': string;
+  'shortcuts.duplicateChart': string;
+  'shortcuts.removeChart': string;
+  'shortcuts.escape': string;
+
+  // Common (extra)
+  'common.cancel': string;
+  'common.fields': string;
 }

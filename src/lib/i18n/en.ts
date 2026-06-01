@@ -154,4 +154,24 @@ export const en: Translations = {
   'guide.step': 'Step',
   'guide.of': 'of',
   'guide.openGuide': 'Help & Guide',
+
+  // Sample data
+  'import.sampleDataTitle': 'Try a sample dataset',
+  'import.sampleDataSubtitle': 'Pick a pre-built dataset to start exploring instantly.',
+  'import.sampleDataHint': 'Charts auto-configure with the first dimension and measure.',
+
+  // Keyboard shortcuts
+  'shortcuts.title': 'Keyboard Shortcuts',
+  'shortcuts.openHelp': 'Show this help',
+  'shortcuts.openGuide': 'Open onboarding guide',
+  'shortcuts.toggleTheme': 'Toggle theme',
+  'shortcuts.openSearch': 'Search fields',
+  'shortcuts.addChart': 'Add chart',
+  'shortcuts.duplicateChart': 'Duplicate chart',
+  'shortcuts.removeChart': 'Remove chart',
+  'shortcuts.escape': 'Close any dialog',
+
+  // Common (extra)
+  'common.cancel': 'Cancel',
+  'common.fields': 'fields',
 };
