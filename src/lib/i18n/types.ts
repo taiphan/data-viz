@@ -143,4 +143,15 @@ export interface Translations {
   'theme.dark': string;
   'theme.highContrast': string;
   'theme.highContrastLight': string;
+
+  // Guide
+  'guide.skip': string;
+  'guide.previous': string;
+  'guide.next': string;
+  'guide.finish': string;
+  'guide.getStarted': string;
+  'guide.complete': string;
+  'guide.step': string;
+  'guide.of': string;
+  'guide.openGuide': string;
 }

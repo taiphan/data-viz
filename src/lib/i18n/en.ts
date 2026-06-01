@@ -143,4 +143,15 @@ export const en: Translations = {
   'theme.dark': 'Dark',
   'theme.highContrast': 'High Contrast Dark',
   'theme.highContrastLight': 'High Contrast Light',
+
+  // Guide
+  'guide.skip': 'Skip tour',
+  'guide.previous': 'Previous',
+  'guide.next': 'Next',
+  'guide.finish': 'Finish',
+  'guide.getStarted': 'Get Started',
+  'guide.complete': 'Complete',
+  'guide.step': 'Step',
+  'guide.of': 'of',
+  'guide.openGuide': 'Help & Guide',
 };

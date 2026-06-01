@@ -143,4 +143,15 @@ export const vi: Translations = {
   'theme.dark': 'Tối',
   'theme.highContrast': 'Tương phản cao (Tối)',
   'theme.highContrastLight': 'Tương phản cao (Sáng)',
+
+  // Guide
+  'guide.skip': 'Bỏ qua',
+  'guide.previous': 'Trước',
+  'guide.next': 'Tiếp',
+  'guide.finish': 'Hoàn tất',
+  'guide.getStarted': 'Bắt đầu',
+  'guide.complete': 'Hoàn thành',
+  'guide.step': 'Bước',
+  'guide.of': 'trên',
+  'guide.openGuide': 'Trợ giúp & Hướng dẫn',
 };

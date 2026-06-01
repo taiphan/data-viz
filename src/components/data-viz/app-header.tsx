@@ -2,12 +2,13 @@
 
 import { useWorkbookStore } from '@/lib/store';
 import { useAuthStore } from '@/lib/auth-store';
+import { useGuideStore } from '@/lib/guide-store';
 import { useT } from '@/lib/i18n';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { VersionHistoryPanel } from '@/components/data-viz/version-history-panel';
 import { Badge } from '@/components/ui/badge';
-import { BarChart3, Pencil, Check, LogOut } from 'lucide-react';
+import { BarChart3, Pencil, Check, LogOut, HelpCircle } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
 const APP_VERSION = '1.1.0';
@@ -15,6 +16,7 @@ const APP_VERSION = '1.1.0';
 export function AppHeader() {
   const { workbook, renameWorkbook } = useWorkbookStore();
   const { user, logout } = useAuthStore();
+  const openGuide = useGuideStore((s) => s.openGuide);
   const t = useT();
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(workbook.name);
@@ -101,6 +103,16 @@ export function AppHeader() {
 
       {/* Right: Actions */}
       <div className="flex items-center gap-1">
+        <button
+          onClick={openGuide}
+          className="inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+          title={t('guide.openGuide')}
+          aria-label={t('guide.openGuide')}
+        >
+          <HelpCircle className="h-4 w-4" />
+          <span className="hidden sm:inline text-xs">{t('guide.openGuide')}</span>
+        </button>
+        <div className="h-4 w-px bg-border mx-1" />
         <VersionHistoryPanel />
         <div className="h-4 w-px bg-border mx-1" />
         <LanguageSwitcher />

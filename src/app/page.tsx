@@ -3,6 +3,7 @@
 import { useAuthStore } from '@/lib/auth-store';
 import { useWorkbookStore } from '@/lib/store';
 import { AuthPage } from '@/components/auth-page';
+import { RoleGuide } from '@/components/role-guide';
 import { AppHeader } from '@/components/data-viz/app-header';
 import { DataImport } from '@/components/data-viz/data-import';
 import { FieldPanel } from '@/components/data-viz/field-panel';
@@ -30,6 +31,7 @@ export default function DataVizPage() {
       <div className="h-screen flex flex-col">
         <AppHeader />
         <DataImport />
+        <RoleGuide />
       </div>
     );
   }
@@ -66,6 +68,9 @@ export default function DataVizPage() {
 
       {/* Bottom: Sheet tabs */}
       <SheetTabs />
+
+      {/* Role-based onboarding guide */}
+      <RoleGuide />
     </div>
   );
 }
