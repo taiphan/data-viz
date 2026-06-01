@@ -3,6 +3,8 @@
 import { useCallback } from 'react';
 import { ChartConfig, ChartType, CHART_TYPE_LABELS, AggregationType, AGGREGATION_LABELS, ChartEncoding } from '@/lib/types';
 import { useWorkbookStore } from '@/lib/store';
+import { useT } from '@/lib/i18n';
+import { Coachmark } from '@/components/coachmark';
 import { PaletteGenerator, type CustomPalette } from './palette-generator';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -40,6 +42,7 @@ interface EncodingShelfProps {
 
 export function EncodingShelf({ chart }: EncodingShelfProps) {
   const { setChartType, setEncoding, updateChart, workbook } = useWorkbookStore();
+  const t = useT();
   const sheet = workbook.sheets.find((s) => s.id === workbook.activeSheetId);
 
   const handleDrop = (e: React.DragEvent, target: 'xAxis' | 'yAxis' | 'color' | 'size') => {
@@ -60,7 +63,14 @@ export function EncodingShelf({ chart }: EncodingShelfProps) {
   };
 
   return (
-    <div className="border-b bg-muted/10 px-3 py-2">
+    <div className="relative border-b bg-muted/10 px-3 py-2">
+      <Coachmark
+        id="encoding-shelf"
+        title={t('coachmark.encodingTitle')}
+        description={t('coachmark.encodingDesc')}
+        position="bottom"
+        delay={2000}
+      />
       <div className="flex flex-wrap items-center gap-2">
         {/* Chart type selector */}
         <div className="flex items-center gap-0.5 rounded-lg border bg-background p-0.5">

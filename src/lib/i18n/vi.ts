@@ -174,4 +174,17 @@ export const vi: Translations = {
   // Common (extra)
   'common.cancel': 'Hủy',
   'common.fields': 'trường',
+
+  // Coachmarks
+  'coachmark.gotIt': 'Đã hiểu',
+  'coachmark.fieldsTitle': 'Kéo trường vào biểu đồ',
+  'coachmark.fieldsDesc': 'Kéo bất kỳ trường nào lên nút X, Y, hoặc Màu để bắt đầu trực quan hóa.',
+  'coachmark.encodingTitle': 'Kệ mã hóa',
+  'coachmark.encodingDesc': 'Các kệ này điều khiển những gì biểu đồ hiển thị. Thử các kết hợp khác nhau.',
+  'coachmark.canvasTitle': 'Biểu đồ xuất hiện ở đây',
+  'coachmark.canvasDesc': 'Nhấn vào biểu đồ bất kỳ để kích hoạt, sau đó thêm trường hoặc đổi loại.',
+  'coachmark.filtersTitle': 'Tinh chỉnh với bộ lọc',
+  'coachmark.filtersDesc': 'Thêm bộ lọc để tập trung vào giá trị cụ thể mà không đổi dữ liệu.',
+  'coachmark.sheetsTitle': 'Nhiều trang',
+  'coachmark.sheetsDesc': 'Tổ chức biểu đồ liên quan vào các trang. Nhấn + để thêm trang mới.',
 };

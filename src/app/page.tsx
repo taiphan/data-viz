@@ -1,18 +1,37 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useAuthStore } from '@/lib/auth-store';
 import { useWorkbookStore } from '@/lib/store';
 import { AuthPage } from '@/components/auth-page';
-import { RoleGuide } from '@/components/role-guide';
-import { KeyboardShortcuts } from '@/components/keyboard-shortcuts';
 import { AppHeader } from '@/components/data-viz/app-header';
 import { DataImport } from '@/components/data-viz/data-import';
 import { FieldPanel } from '@/components/data-viz/field-panel';
 import { ChartCanvas } from '@/components/data-viz/chart-canvas';
 import { FilterPanel } from '@/components/data-viz/filter-panel';
 import { SheetTabs } from '@/components/data-viz/sheet-tabs';
-import { DataPrepPanel } from '@/components/data-viz/data-prep-panel';
 import { ParameterPanel } from '@/components/data-viz/parameter-panel';
+
+// ============================================================
+// Lazy-loaded — non-critical, deferred to reduce initial bundle
+// ============================================================
+const RoleGuide = dynamic(
+  () => import('@/components/role-guide').then((m) => ({ default: m.RoleGuide })),
+  { ssr: false },
+);
+
+const KeyboardShortcuts = dynamic(
+  () => import('@/components/keyboard-shortcuts').then((m) => ({ default: m.KeyboardShortcuts })),
+  { ssr: false },
+);
+
+const DataPrepPanel = dynamic(
+  () =>
+    import('@/components/data-viz/data-prep-panel').then((m) => ({
+      default: m.DataPrepPanel,
+    })),
+  { ssr: false },
+);
 
 export default function DataVizPage() {
   const { user } = useAuthStore();
@@ -71,10 +90,8 @@ export default function DataVizPage() {
       {/* Bottom: Sheet tabs */}
       <SheetTabs />
 
-      {/* Role-based onboarding guide */}
+      {/* Lazy-loaded overlays */}
       <RoleGuide />
-
-      {/* Keyboard shortcuts (? to show help) */}
       <KeyboardShortcuts />
     </div>
   );

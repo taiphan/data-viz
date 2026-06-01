@@ -9,6 +9,7 @@ import { EncodingShelf } from './encoding-shelf';
 import { InsightsCard } from './insights-card';
 import { Card } from '@/components/ui/card';
 import { Plus, X, Copy, Lightbulb } from 'lucide-react';
+import { Coachmark } from '@/components/coachmark';
 
 export function ChartCanvas() {
   const {
@@ -30,7 +31,14 @@ export function ChartCanvas() {
   const activeChart = charts.find((c) => c.id === workbook.activeChartId);
 
   return (
-    <div className="flex h-full flex-col overflow-hidden">
+    <div className="relative flex h-full flex-col overflow-hidden">
+      <Coachmark
+        id="chart-canvas"
+        title={t('coachmark.canvasTitle')}
+        description={t('coachmark.canvasDesc')}
+        position="left"
+        delay={2800}
+      />
       {/* Encoding shelf for active chart */}
       {activeChart && <EncodingShelf chart={activeChart} />}
 

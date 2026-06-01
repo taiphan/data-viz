@@ -174,4 +174,17 @@ export interface Translations {
   // Common (extra)
   'common.cancel': string;
   'common.fields': string;
+
+  // Coachmarks
+  'coachmark.gotIt': string;
+  'coachmark.fieldsTitle': string;
+  'coachmark.fieldsDesc': string;
+  'coachmark.encodingTitle': string;
+  'coachmark.encodingDesc': string;
+  'coachmark.canvasTitle': string;
+  'coachmark.canvasDesc': string;
+  'coachmark.filtersTitle': string;
+  'coachmark.filtersDesc': string;
+  'coachmark.sheetsTitle': string;
+  'coachmark.sheetsDesc': string;
 }

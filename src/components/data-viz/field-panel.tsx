@@ -15,6 +15,7 @@ import {
 import { Hash, Type, Calendar, ToggleLeft, GripVertical, Layers, BarChart3, X } from 'lucide-react';
 import { CreateGroupDialog } from './create-group-dialog';
 import { CreateBinDialog } from './create-bin-dialog';
+import { Coachmark } from '@/components/coachmark';
 
 const FIELD_TYPE_ICONS: Record<string, React.ElementType> = {
   number: Hash,
@@ -74,7 +75,15 @@ export function FieldPanel() {
   };
 
   return (
-    <div className="flex h-full flex-col border-r bg-card/30 w-56">
+    <div className="relative flex h-full flex-col border-r bg-card/30 w-56">
+      {/* First-time hint */}
+      <Coachmark
+        id="field-panel-drag"
+        title={t('coachmark.fieldsTitle')}
+        description={t('coachmark.fieldsDesc')}
+        position="right"
+        delay={1200}
+      />
       <div className="border-b px-3 py-2.5">
         <div className="flex items-center justify-between mb-1.5">
           <h2 className="text-xs font-semibold text-foreground">

@@ -174,4 +174,17 @@ export const en: Translations = {
   // Common (extra)
   'common.cancel': 'Cancel',
   'common.fields': 'fields',
+
+  // Coachmarks
+  'coachmark.gotIt': 'Got it',
+  'coachmark.fieldsTitle': 'Drag fields to charts',
+  'coachmark.fieldsDesc': 'Drag any field onto the X, Y, or Color buttons to start visualizing.',
+  'coachmark.encodingTitle': 'Encoding shelves',
+  'coachmark.encodingDesc': 'These shelves control what your chart displays. Try different combinations.',
+  'coachmark.canvasTitle': 'Your chart appears here',
+  'coachmark.canvasDesc': 'Click any chart to make it active, then add fields or change the chart type.',
+  'coachmark.filtersTitle': 'Refine with filters',
+  'coachmark.filtersDesc': 'Add filters to focus on specific values without changing your data.',
+  'coachmark.sheetsTitle': 'Multiple sheets',
+  'coachmark.sheetsDesc': 'Organize related charts into sheets. Click + to add a new sheet.',
 };
