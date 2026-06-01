@@ -1,11 +1,22 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Vercel handles output optimization automatically
+  // No standalone output needed — Vercel handles optimization
+  // No backend dependency — auth and data are client-side
 
   images: {
     unoptimized: false,
-    domains: ['fecredit.com.vn', 'www.fecredit.com.vn'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+
+  // Ignore TypeScript errors in proxy/ during frontend build
+  typescript: {
+    ignoreBuildErrors: false,
   },
 
   async headers() {
